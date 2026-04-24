@@ -1,1126 +1,818 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amplitude Pricing</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+import { useState } from "react";
 
-    :root {
-      --ink:        #0D0F1C;
-      --ink-mid:    #1E2235;
-      --text:       #3D4153;
-      --muted:      #6B7280;
-      --subtle:     #9CA3AF;
-      --border:     #E5E7EB;
-      --border-mid: #D1D5DB;
-      --surface:    #F9FAFB;
-      --white:      #FFFFFF;
-      --blue:       #0052CC;
-      --blue-light: #EBF2FF;
-      --navy:       #0D0F1C;
-    }
+const CheckIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15 4.5L6.75 12.75L3 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
 
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--white);
-      color: var(--ink);
-      -webkit-font-smoothing: antialiased;
-    }
+const ChevronDown = () => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
 
-    /* ── NAV ── */
-    nav {
-      position: sticky; top: 0; z-index: 50;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      height: 60px;
-      display: flex; align-items: center;
-    }
-    .nav-inner {
-      max-width: 1160px; margin: 0 auto; padding: 0 24px;
-      width: 100%;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .wordmark {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 1.1rem; font-weight: 800; color: var(--ink);
-      letter-spacing: -0.03em; text-decoration: none;
-    }
-    .nav-actions { display: flex; align-items: center; gap: 12px; }
-    .nav-link {
-      font-size: 0.875rem; font-weight: 500; color: var(--muted);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-    .nav-link:hover { color: var(--ink); }
-
-    /* ── BUTTONS ── */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      font-family: inherit; font-weight: 700; border: none; cursor: pointer;
-      text-decoration: none; transition: all 0.15s; white-space: nowrap;
-      letter-spacing: -0.01em;
-    }
-    .btn-dark {
-      background: var(--ink);
-      color: var(--white);
-      border-radius: 10px;
-      padding: 13px 24px;
-      font-size: 0.9rem;
-    }
-    .btn-dark:hover { background: #1E2235; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(13,15,28,0.2); }
-
-    .btn-outline {
-      background: var(--white);
-      color: var(--ink);
-      border: 1.5px solid var(--border-mid);
-      border-radius: 10px;
-      padding: 13px 24px;
-      font-size: 0.9rem;
-    }
-    .btn-outline:hover { border-color: var(--ink); transform: translateY(-1px); }
-
-    .btn-ghost {
-      background: rgba(255,255,255,0.12);
-      color: var(--white);
-      border: 1.5px solid rgba(255,255,255,0.25);
-      border-radius: 10px;
-      padding: 13px 24px;
-      font-size: 0.9rem;
-    }
-    .btn-ghost:hover { background: rgba(255,255,255,0.2); transform: translateY(-1px); }
-
-    .btn-hero {
-      background: var(--ink);
-      color: var(--white);
-      border-radius: 12px;
-      padding: 16px 36px;
-      font-size: 1rem;
-    }
-    .btn-hero:hover { background: #1E2235; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(13,15,28,0.22); }
-
-    .btn-sm {
-      padding: 9px 18px;
-      font-size: 0.82rem;
-      border-radius: 8px;
-    }
-
-    .btn-full { width: 100%; }
-
-    /* ── HERO ── */
-    .hero {
-      padding: 48px 24px 36px;
-      text-align: center;
-      background: linear-gradient(180deg, #F5F7FF 0%, #FFFFFF 100%);
-    }
-    .hero h1 {
-      font-size: 2.75rem;
-      font-weight: 900;
-      letter-spacing: -0.045em;
-      line-height: 1.08;
-      color: var(--ink);
-      max-width: 620px;
-      margin: 0 auto 14px;
-    }
-    .hero p {
-      font-size: 1rem;
-      color: var(--muted);
-      max-width: 440px;
-      margin: 0 auto 28px;
-      line-height: 1.6;
-    }
-    .hero-actions {
-      display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;
-    }
-    .hero-note {
-      font-size: 0.82rem; color: var(--subtle);
-      display: flex; align-items: center; gap: 5px;
-    }
-
-    /* ── STRIP ── */
-    .strip {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 14px 24px;
-      background: var(--white);
-    }
-    .strip-inner {
-      max-width: 1160px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: center;
-      gap: 10px; flex-wrap: wrap;
-    }
-    .strip-label {
-      font-size: 0.78rem; font-weight: 600; color: var(--subtle);
-      letter-spacing: 0.04em; text-transform: uppercase;
-    }
-    .tool-tag {
-      font-size: 0.82rem; font-weight: 600; color: var(--text);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 5px 12px;
-      display: inline-flex; align-items: center; gap: 0;
-    }
-    .strip-etc {
-      font-size: 0.82rem; color: var(--subtle);
-    }
-
-    /* ── PRICING SECTION ── */
-    .pricing-section {
-      padding: 40px 24px 56px;
-      background: var(--surface);
-    }
-
-    /* ── CARDS GRID ── */
-    .cards-grid {
-      max-width: 1160px; margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 16px;
-      align-items: start;
-    }
-
-    /* ── CARD BASE ── */
-    .card {
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: 20px;
-      padding: 32px 28px;
-      display: flex; flex-direction: column; gap: 0;
-    }
-    .card-header { margin-bottom: 20px; }
-    .plan-label {
-      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--subtle); margin-bottom: 10px;
-    }
-    .price-row { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; }
-    .price-main {
-      font-size: 2.5rem; font-weight: 900; letter-spacing: -0.04em; color: var(--ink);
-    }
-    .price-per {
-      font-size: 0.95rem; font-weight: 500; color: var(--muted);
-    }
-    .price-note {
-      font-size: 0.82rem; color: var(--subtle); margin-bottom: 0;
-    }
-
-    /* ── PLUS CARD ── */
-    .card-plus {
-      border-color: var(--ink);
-      border-width: 2px;
-      box-shadow: 0 8px 40px rgba(13,15,28,0.12);
-      position: relative;
-      transform: translateY(-6px);
-    }
-    .popular-badge {
-      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
-      background: var(--ink);
-      color: var(--white);
-      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.07em;
-      text-transform: uppercase;
-      padding: 5px 14px;
-      border-radius: 999px;
-      white-space: nowrap;
-    }
-
-    /* ── ENTERPRISE CARD ── */
-    .card-enterprise {
-      background: var(--navy);
-      border-color: rgba(255,255,255,0.1);
-    }
-    .card-enterprise .plan-label { color: rgba(255,255,255,0.45); }
-    .card-enterprise .price-main { color: var(--white); }
-    .card-enterprise .price-note { color: rgba(255,255,255,0.45); }
-
-    /* ── CARD DIVIDER ── */
-    .card-divider {
-      height: 1px; background: var(--border);
-      margin: 20px 0;
-    }
-    .card-enterprise .card-divider {
-      background: rgba(255,255,255,0.1);
-    }
-
-    /* ── USE IT TO + INCLUDES ── */
-    .list-heading {
-      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.07em; color: var(--subtle); margin-bottom: 12px;
-    }
-    .card-enterprise .list-heading { color: rgba(255,255,255,0.4); }
-
-    .use-list {
-      list-style: none; display: flex; flex-direction: column; gap: 9px;
-      margin-bottom: 0;
-    }
-    .use-list li {
-      display: flex; gap: 9px; align-items: flex-start;
-      font-size: 0.875rem; color: var(--text); line-height: 1.5;
-    }
-    .card-enterprise .use-list li { color: rgba(255,255,255,0.75); }
-
-    .check {
-      flex-shrink: 0; margin-top: 2px;
-      width: 16px; height: 16px;
-      color: var(--ink);
-    }
-    .card-enterprise .check { color: rgba(255,255,255,0.6); }
-
-    /* ── FEATURE CHIPS ── */
-    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-    .chip {
-      font-size: 0.72rem; font-weight: 600;
-      color: var(--text);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 3px 10px;
-      white-space: nowrap;
-    }
-    .card-enterprise .chip {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.15);
-      color: rgba(255,255,255,0.7);
-    }
-
-    /* ── CTA NOTE ── */
-    .cta-note {
-      font-size: 0.75rem; color: var(--subtle);
-      text-align: center; margin-top: 8px; margin-bottom: 20px;
-    }
-    .card-enterprise .cta-note { color: rgba(255,255,255,0.3); }
-
-    /* ── SCHOLARSHIP ── */
-    .scholarship {
-      padding: 0 24px 64px;
-      background: var(--surface);
-    }
-    .scholarship-inner {
-      max-width: 1160px; margin: 0 auto;
-      background: var(--navy);
-      border-radius: 20px;
-      padding: 40px 48px;
-      display: flex; align-items: center;
-      justify-content: space-between;
-      gap: 32px; flex-wrap: wrap;
-    }
-    .scholarship-tag {
-      display: inline-block;
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 999px;
-      padding: 4px 12px;
-      margin-bottom: 12px;
-    }
-    .scholarship h3 {
-      font-size: 1.5rem; font-weight: 900; letter-spacing: -0.03em;
-      color: var(--white); margin-bottom: 8px;
-    }
-    .scholarship p {
-      font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.6;
-      max-width: 440px;
-    }
-    .btn-scholarship {
-      background: var(--white); color: var(--ink);
-      border-radius: 12px; padding: 14px 28px;
-      font-size: 0.9rem; font-weight: 700;
-      text-decoration: none; display: inline-block;
-      white-space: nowrap; flex-shrink: 0;
-      transition: all 0.15s;
-    }
-    .btn-scholarship:hover { background: #F0F2F8; transform: translateY(-1px); }
-
-    /* ── PLAN HELPER ── */
-    .plan-helper {
-      padding: 72px 24px;
-      background: var(--white);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .plan-helper-inner {
-      max-width: 640px; margin: 0 auto; text-align: center;
-    }
-    .plan-helper h2 {
-      font-size: 1.65rem; font-weight: 900; letter-spacing: -0.03em;
-      color: var(--ink); margin-bottom: 8px;
-    }
-    .plan-helper > .plan-helper-inner > p {
-      font-size: 0.95rem; color: var(--muted); margin-bottom: 28px;
-    }
-    .helper-box {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      text-align: left;
-    }
-    .helper-message {
-      display: flex; gap: 10px; align-items: flex-start; margin-bottom: 16px;
-    }
-    .helper-avatar {
-      width: 28px; height: 28px; border-radius: 999px;
-      background: var(--ink);
-      flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .helper-bubble {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-size: 0.86rem; color: var(--text); line-height: 1.55;
-      max-width: 400px;
-    }
-    .helper-input-row {
-      display: flex; gap: 8px; align-items: center;
-    }
-    .helper-input {
-      flex: 1;
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 11px 14px;
-      font-size: 0.875rem; color: var(--text);
-      font-family: inherit; outline: none;
-      transition: border-color 0.15s;
-    }
-    .helper-input:focus { border-color: var(--ink); }
-    .helper-input::placeholder { color: var(--subtle); }
-
-    /* ── WHY AMPLITUDE ── */
-    .why-section {
-      padding: 80px 24px;
-      background: var(--surface);
-    }
-    .why-inner { max-width: 1160px; margin: 0 auto; }
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-    .why-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 22px;
-      transition: box-shadow 0.15s, transform 0.15s;
-    }
-    .why-card:hover { box-shadow: 0 4px 18px rgba(13,15,28,0.08); transform: translateY(-2px); }
-    .why-icon {
-      width: 40px; height: 40px;
-      background: var(--ink);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 16px;
-    }
-    .why-card h3 {
-      font-size: 0.95rem; font-weight: 800; color: var(--ink);
-      letter-spacing: -0.02em; margin-bottom: 8px;
-    }
-    .why-card p {
-      font-size: 0.84rem; color: var(--muted); line-height: 1.6;
-    }
-
-    /* ── FAQ ── */
-    .faq-section {
-      padding: 72px 24px;
-      background: var(--white);
-      border-top: 1px solid var(--border);
-    }
-    .faq-inner { max-width: 680px; margin: 0 auto; }
-    .faq-header { text-align: center; margin-bottom: 44px; }
-    .faq-header h2 {
-      font-size: 1.85rem; font-weight: 900; letter-spacing: -0.04em; color: var(--ink);
-    }
-    .faq-item { border-top: 1px solid var(--border); }
-    .faq-item:last-child { border-bottom: 1px solid var(--border); }
-    .faq-btn {
-      width: 100%; background: none; border: none; cursor: pointer;
-      padding: 20px 0;
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
-      text-align: left; font-family: inherit;
-    }
-    .faq-question {
-      font-size: 0.95rem; font-weight: 700; color: var(--ink); letter-spacing: -0.01em;
-    }
-    .faq-chevron {
-      flex-shrink: 0; transition: transform 0.22s ease;
-      color: var(--muted);
-    }
-    .faq-btn.open .faq-chevron { transform: rotate(180deg); }
-    .faq-answer {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.28s ease;
-    }
-    .faq-answer.open { max-height: 160px; }
-    .faq-answer p {
-      font-size: 0.875rem; color: var(--muted); line-height: 1.65;
-      padding-bottom: 20px;
-    }
-
-    /* ── FINAL CTA ── */
-    .final-cta {
-      padding: 96px 24px;
-      background: var(--surface);
-      text-align: center;
-    }
-    .final-cta h2 {
-      font-size: 2.5rem; font-weight: 900; letter-spacing: -0.045em;
-      color: var(--ink); margin-bottom: 32px; line-height: 1.1;
-    }
-    .cta-actions {
-      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--navy);
-      padding: 56px 24px 32px;
-    }
-    .footer-inner {
-      max-width: 1160px; margin: 0 auto;
-    }
-    .footer-top {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 32px;
-      padding-bottom: 48px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .footer-col-heading {
-      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.07em;
-      text-transform: uppercase; color: rgba(255,255,255,0.4);
-      margin-bottom: 14px;
-    }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-    .footer-col ul li a {
-      font-size: 0.82rem; color: rgba(255,255,255,0.55);
-      text-decoration: none; transition: color 0.15s;
-    }
-    .footer-col ul li a:hover { color: rgba(255,255,255,0.9); }
-    .footer-bottom {
-      padding-top: 24px;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 16px;
-    }
-    .footer-wordmark {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 0.95rem; font-weight: 800;
-      color: rgba(255,255,255,0.55); letter-spacing: -0.03em;
-    }
-    .footer-legal { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .footer-legal a {
-      font-size: 0.78rem; color: rgba(255,255,255,0.35);
-      text-decoration: none; transition: color 0.15s;
-    }
-    .footer-legal a:hover { color: rgba(255,255,255,0.65); }
-    .footer-social { display: flex; align-items: center; gap: 14px; }
-    .footer-social a { color: rgba(255,255,255,0.4); transition: color 0.15s; display: flex; }
-    .footer-social a:hover { color: rgba(255,255,255,0.8); }
-    .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.2); }
-    @media (max-width: 860px) {
-      .footer-top { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 480px) {
-      .footer-top { grid-template-columns: 1fr; }
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 960px) {
-      .cards-grid { grid-template-columns: 1fr; max-width: 480px; }
-      .card-plus { transform: none; }
-      .why-grid { grid-template-columns: 1fr 1fr; }
-      .hero h1 { font-size: 2.4rem; }
-    }
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 2rem; }
-      .why-grid { grid-template-columns: 1fr; }
-      .scholarship-inner { padding: 32px 28px; }
-      .final-cta h2 { font-size: 1.9rem; }
-    }
-  </style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <a href="#" class="wordmark">
-      <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="7" fill="#0D0F1C"/>
-        <path d="M8 24L16 8L24 24" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M10.8 19.2h10.4" stroke="white" stroke-width="2.4" stroke-linecap="round"/>
-      </svg>
-      amplitude
-    </a>
-    <div class="nav-actions">
-      <a href="#" class="nav-link">Pricing</a>
-      <a href="#" class="btn btn-outline btn-sm">Log in</a>
-      <a href="#" class="btn btn-dark btn-sm">Get started</a>
-    </div>
-  </div>
-</nav>
-
-
-<!-- 1. HERO -->
-<section class="hero">
-  <h1>Build something people actually use.</h1>
-  <p>See what users do, fix what matters, and scale when it works. Start free. No credit card.</p>
-</section>
-
-
-<!-- 2. WORKFLOW STRIP -->
-<div class="strip">
-  <div class="strip-inner">
-    <span class="strip-label">Works inside your tools</span>
-
-    <!-- Claude -->
-    <span class="tool-tag">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:5px;">
-        <path d="M4.5 16.5L7.5 9L10.5 16.5M6 14h3M13.5 9v7.5M13.5 9h3a1.5 1.5 0 010 3h-3M13.5 12h3.2a1.5 1.5 0 010 3H13.5" stroke="#CC785C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Claude
+const ToolLogo = ({ name }) => {
+  const colors = {
+    Claude: "#D97757",
+    Cursor: "#000000",
+    Lovable: "#E5484D",
+    GitHub: "#333333",
+    Linear: "#5E6AD2",
+    Figma: "#A259FF",
+  };
+  return (
+    <span style={{
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "6px",
+      fontSize: "13px",
+      fontWeight: 500,
+      color: "#1a1a1a",
+      letterSpacing: "-0.01em",
+    }}>
+      <span style={{
+        width: "8px",
+        height: "8px",
+        borderRadius: "50%",
+        backgroundColor: colors[name] || "#666",
+        flexShrink: 0,
+      }} />
+      {name}
     </span>
+  );
+};
 
-    <!-- Cursor -->
-    <span class="tool-tag">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:5px;">
-        <rect x="3" y="3" width="18" height="18" rx="4" fill="#1A1A1A"/>
-        <path d="M8 16L12 7l4 9M9.5 13h5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Cursor
+const FAQItem = ({ question, answer }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{
+      borderBottom: "1px solid #e5e2dd",
+      padding: "20px 0",
+    }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          padding: 0,
+          textAlign: "left",
+          fontFamily: "inherit",
+        }}
+      >
+        <span style={{
+          fontSize: "15px",
+          fontWeight: 600,
+          color: "#1a1a1a",
+          lineHeight: 1.4,
+        }}>{question}</span>
+        <span style={{
+          transform: open ? "rotate(180deg)" : "rotate(0deg)",
+          transition: "transform 0.2s ease",
+          color: "#666",
+          flexShrink: 0,
+          marginLeft: "16px",
+        }}>
+          <ChevronDown />
+        </span>
+      </button>
+      {open && (
+        <p style={{
+          marginTop: "12px",
+          fontSize: "14px",
+          lineHeight: 1.65,
+          color: "#444",
+          maxWidth: "640px",
+        }}>{answer}</p>
+      )}
+    </div>
+  );
+};
+
+const PlanFeature = ({ text }) => (
+  <div style={{
+    display: "flex",
+    alignItems: "flex-start",
+    gap: "10px",
+    marginBottom: "14px",
+  }}>
+    <span style={{ color: "#D97706", flexShrink: 0, marginTop: "1px" }}>
+      <CheckIcon />
     </span>
-
-    <!-- Lovable -->
-    <span class="tool-tag">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:5px;">
-        <path d="M12 20.5s-8-5.5-8-11a5 5 0 0110 0 5 5 0 0110 0c0 5.5-8 11-8 11" fill="#E94B3C" stroke="#E94B3C" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Lovable
-    </span>
-
-    <!-- GitHub -->
-    <span class="tool-tag">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="#1A1A1A" xmlns="http://www.w3.org/2000/svg" style="display:inline-block;vertical-align:middle;margin-right:5px;">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.09.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
-      </svg>
-      GitHub
-    </span>
-
-    <span class="strip-etc">· any MCP tool</span>
+    <span style={{
+      fontSize: "14px",
+      lineHeight: 1.5,
+      color: "#333",
+    }}>{text}</span>
   </div>
-</div>
+);
 
+const IncludedTag = ({ label }) => (
+  <span style={{
+    display: "inline-block",
+    padding: "4px 10px",
+    borderRadius: "6px",
+    backgroundColor: "#f0ede8",
+    fontSize: "12px",
+    fontWeight: 500,
+    color: "#555",
+    marginRight: "6px",
+    marginBottom: "6px",
+  }}>{label}</span>
+);
 
-<!-- 3. PRICING CARDS -->
-<section class="pricing-section">
-  <div class="cards-grid">
+const EntTag = ({ label }) => (
+  <span style={{
+    display: "inline-block",
+    padding: "4px 10px",
+    borderRadius: "6px",
+    backgroundColor: "#1a1a1a",
+    fontSize: "12px",
+    fontWeight: 500,
+    color: "#fff",
+    marginRight: "6px",
+    marginBottom: "6px",
+  }}>{label}</span>
+);
 
-    <!-- STARTER -->
-    <div class="card">
-      <div class="card-header">
-        <p class="plan-label">Starter</p>
-        <div class="price-row">
-          <span class="price-main">Free</span>
+export default function PricingPage() {
+  return (
+    <div style={{
+      fontFamily: "'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+      backgroundColor: "#FAF9F6",
+      color: "#1a1a1a",
+      minHeight: "100vh",
+    }}>
+      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+
+      {/* Nav */}
+      <nav style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "14px 32px",
+        backgroundColor: "#1a1a1a",
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="11" stroke="#fff" strokeWidth="1.5"/>
+            <path d="M8 16L12 6L16 16" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <line x1="9.5" y1="13" x2="14.5" y2="13" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+          <span style={{ color: "#fff", fontWeight: 600, fontSize: "16px", letterSpacing: "-0.02em" }}>amplitude</span>
         </div>
-        <p class="price-note">Up to 10K MTUs · 2M events</p>
-      </div>
-
-      <a href="#" class="btn btn-outline btn-full">Start for free</a>
-      <p class="cta-note">No credit card</p>
-
-      <div class="card-divider"></div>
-
-      <p class="list-heading">Use it to:</p>
-      <ul class="use-list" style="margin-bottom: 20px;">
-        <li>
-          <svg class="check" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          See where users drop off
-        </li>
-        <li>
-          <svg class="check" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Watch real sessions to find friction
-        </li>
-        <li>
-          <svg class="check" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Run basic experiments and activation
-        </li>
-      </ul>
-
-      <div class="card-divider"></div>
-
-      <p class="list-heading">Includes:</p>
-      <div class="chips">
-        <span class="chip">Analytics</span>
-        <span class="chip">Session Replay</span>
-        <span class="chip">Feature flags</span>
-        <span class="chip">Web experiments</span>
-        <span class="chip">Activation</span>
-        <span class="chip">Guides & Surveys</span>
-        <span class="chip">AI Agents</span>
-        <span class="chip">MCP</span>
-        <span class="chip">AI Visibility</span>
-        <span class="chip">AI Feedback</span>
-        <span class="chip">Unlimited seats</span>
-      </div>
-    </div>
-
-    <!-- PLUS -->
-    <div class="card card-plus">
-      <div class="popular-badge">Most Popular</div>
-
-      <div class="card-header" style="padding-top: 10px;">
-        <p class="plan-label">Plus</p>
-        <div class="price-row">
-          <span class="price-main">$49</span>
-          <span class="price-per">/mo</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          <span style={{ color: "#aaa", fontSize: "14px", fontWeight: 500 }}>Pricing</span>
+          <button style={{
+            background: "none",
+            border: "1px solid #555",
+            color: "#fff",
+            padding: "7px 16px",
+            borderRadius: "8px",
+            fontSize: "13px",
+            fontWeight: 500,
+            cursor: "pointer",
+          }}>Log in</button>
+          <button style={{
+            background: "#fff",
+            border: "none",
+            color: "#1a1a1a",
+            padding: "8px 18px",
+            borderRadius: "8px",
+            fontSize: "13px",
+            fontWeight: 600,
+            cursor: "pointer",
+          }}>Get started</button>
         </div>
-        <p class="price-note">Free up to 10K MTUs, then pay as you grow</p>
-      </div>
+      </nav>
 
-      <a href="#" class="btn btn-dark btn-full">Get started</a>
-      <p class="cta-note">We'll notify you before charges</p>
+      {/* Hero */}
+      <section style={{
+        textAlign: "center",
+        padding: "64px 24px 24px",
+        maxWidth: "720px",
+        margin: "0 auto",
+      }}>
+        <h1 style={{
+          fontSize: "clamp(32px, 5vw, 48px)",
+          fontWeight: 700,
+          lineHeight: 1.1,
+          letterSpacing: "-0.035em",
+          marginBottom: "16px",
+          color: "#1a1a1a",
+        }}>
+          See what users do.<br/>
+          <span style={{ color: "#D97706" }}>Fix what breaks.</span><br/>
+          Ship what works.
+        </h1>
+        <p style={{
+          fontSize: "17px",
+          lineHeight: 1.55,
+          color: "#555",
+          maxWidth: "520px",
+          margin: "0 auto 32px",
+        }}>
+          Analytics, session replay, feature flags, experiments, and error monitoring. One platform. One event metric. Start free. No credit card required.
+        </p>
 
-      <div class="card-divider"></div>
-
-      <p class="list-heading">Use it to:</p>
-      <ul class="use-list" style="margin-bottom: 20px;">
-        <li>
-          <svg class="check" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Find what actually drives retention and conversion
-        </li>
-        <li>
-          <svg class="check" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Scale past free limits without losing data or momentum
-        </li>
-        <li>
-          <svg class="check" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Pay less per user as you grow
-        </li>
-      </ul>
-
-      <div class="card-divider"></div>
-
-      <p class="list-heading">Includes everything in Starter, plus:</p>
-      <ul class="use-list">
-        <li>
-          <svg class="check" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Higher limits
-        </li>
-        <li>
-          <svg class="check" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Better usage rates
-        </li>
-        <li>
-          <svg class="check" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Deeper analysis and experimentation
-        </li>
-      </ul>
-    </div>
-
-    <!-- ENTERPRISE -->
-    <div class="card card-enterprise">
-      <div class="card-header">
-        <p class="plan-label">Enterprise</p>
-        <div class="price-row">
-          <span class="price-main">Custom</span>
+        {/* Tool logos bar */}
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "10px",
+          marginBottom: "8px",
+        }}>
+          <span style={{
+            fontSize: "11px",
+            fontWeight: 600,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "#999",
+          }}>Works inside your tools</span>
+          <div style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "20px",
+          }}>
+            <ToolLogo name="Claude" />
+            <ToolLogo name="Cursor" />
+            <ToolLogo name="Lovable" />
+            <ToolLogo name="GitHub" />
+            <ToolLogo name="Linear" />
+            <span style={{ fontSize: "13px", color: "#999", fontWeight: 500 }}>+ any MCP tool</span>
+          </div>
         </div>
-        <p class="price-note">Unlimited MTUs or events</p>
-      </div>
+      </section>
 
-      <a href="#" class="btn btn-ghost btn-full">Talk to sales</a>
-      <div style="height: 28px;"></div>
+      {/* Plan Cards */}
+      <section style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+        gap: "20px",
+        maxWidth: "960px",
+        margin: "24px auto 48px",
+        padding: "0 24px",
+      }}>
+        {/* Starter */}
+        <div style={{
+          backgroundColor: "#fff",
+          borderRadius: "16px",
+          padding: "32px 28px",
+          border: "1px solid #e5e2dd",
+          display: "flex",
+          flexDirection: "column",
+        }}>
+          <span style={{
+            fontSize: "11px",
+            fontWeight: 600,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "#999",
+            marginBottom: "8px",
+          }}>Starter</span>
+          <div style={{
+            fontSize: "36px",
+            fontWeight: 700,
+            letterSpacing: "-0.03em",
+            marginBottom: "4px",
+          }}>Free</div>
+          <p style={{
+            fontSize: "14px",
+            color: "#777",
+            marginBottom: "24px",
+            lineHeight: 1.5,
+          }}>2M events included. No credit card.</p>
 
-      <div class="card-divider"></div>
+          <button style={{
+            width: "100%",
+            padding: "12px",
+            borderRadius: "10px",
+            border: "1px solid #1a1a1a",
+            backgroundColor: "#fff",
+            color: "#1a1a1a",
+            fontSize: "14px",
+            fontWeight: 600,
+            cursor: "pointer",
+            marginBottom: "6px",
+          }}>Start for free</button>
+          <p style={{ fontSize: "12px", color: "#aaa", textAlign: "center", marginBottom: "28px" }}>No credit card required</p>
 
-      <p class="list-heading">Use it to:</p>
-      <ul class="use-list" style="margin-bottom: 20px;">
-        <li>
-          <svg class="check" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Run experiments across your entire product
-        </li>
-        <li>
-          <svg class="check" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Control data access across teams and regions
-        </li>
-        <li>
-          <svg class="check" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Manage SSO, permissions, and audit trails
-        </li>
-      </ul>
+          <div style={{ marginBottom: "24px" }}>
+            <span style={{ fontSize: "12px", fontWeight: 600, color: "#999", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "14px", display: "block" }}>Use it to:</span>
+            <PlanFeature text="Find what's broken in your product" />
+            <PlanFeature text="Replay real user sessions to debug faster" />
+            <PlanFeature text="Test changes with feature flags and experiments" />
+          </div>
 
-      <div class="card-divider"></div>
-
-      <p class="list-heading">Includes:</p>
-      <div class="chips">
-        <span class="chip">Custom volume</span>
-        <span class="chip">50K session replays/mo</span>
-        <span class="chip">Unlimited cohorts</span>
-        <span class="chip">Unlimited experiments</span>
-        <span class="chip">5,000 AI prompts</span>
-        <span class="chip">Advanced access controls</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- 4. SCHOLARSHIP -->
-<section class="scholarship">
-  <div class="scholarship-inner">
-    <div>
-      <span class="scholarship-tag">Startup Scholarship</span>
-      <h3>Startups get one year free.</h3>
-      <p>Full Growth plan for 12 months. Under 20 employees and &lt; $10M raised? You likely qualify.</p>
-    </div>
-    <a href="#" class="btn-scholarship">Check if you qualify</a>
-  </div>
-</section>
-
-
-<!-- 5. PLAN HELPER -->
-<section class="plan-helper">
-  <div class="plan-helper-inner">
-    <h2>Not sure which plan is right for you?</h2>
-    <p>Ask Amplitude AI. Tell us what you're building. We'll recommend a plan.</p>
-    <div class="helper-box">
-      <div class="helper-message">
-        <div class="helper-avatar">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <div>
+            <span style={{ fontSize: "12px", fontWeight: 600, color: "#999", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "12px", display: "block" }}>Includes:</span>
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
+              {["Analytics", "Session Replay", "Feature Flags", "Experiments", "Guides & Surveys", "AI Agents", "MCP", "AI Visibility", "Activation", "Unlimited seats"].map(t => (
+                <IncludedTag key={t} label={t} />
+              ))}
+            </div>
+          </div>
         </div>
-        <div class="helper-bubble">What are you building, and roughly how many users do you expect in the first few months?</div>
-      </div>
-      <div class="helper-input-row">
-        <input class="helper-input" type="text" placeholder="Tell us what you're building…" />
-        <a href="#" class="btn btn-dark" style="padding: 11px 18px; font-size: 0.85rem; border-radius: 10px; flex-shrink: 0;">Get recommendation</a>
-      </div>
-    </div>
-  </div>
-</section>
 
+        {/* Plus */}
+        <div style={{
+          backgroundColor: "#fff",
+          borderRadius: "16px",
+          padding: "32px 28px",
+          border: "2px solid #1a1a1a",
+          display: "flex",
+          flexDirection: "column",
+          position: "relative",
+        }}>
+          <div style={{
+            position: "absolute",
+            top: "-12px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            backgroundColor: "#1a1a1a",
+            color: "#fff",
+            fontSize: "11px",
+            fontWeight: 600,
+            letterSpacing: "0.06em",
+            textTransform: "uppercase",
+            padding: "5px 16px",
+            borderRadius: "20px",
+          }}>Most popular</div>
 
-<!-- 6. WHY AMPLITUDE -->
-<section class="why-section">
-  <div class="why-inner">
-    <div class="section-header">
-      <h2>Built for real product decisions.</h2>
-      <p>Go from data to insight, experimentation, and action in one place.</p>
-    </div>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <span style={{
+            fontSize: "11px",
+            fontWeight: 600,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "#999",
+            marginBottom: "8px",
+          }}>Plus</span>
+          <div style={{ display: "flex", alignItems: "baseline", gap: "4px", marginBottom: "4px" }}>
+            <span style={{ fontSize: "36px", fontWeight: 700, letterSpacing: "-0.03em" }}>Free</span>
+            <span style={{ fontSize: "14px", color: "#777" }}>up to 2M events</span>
+          </div>
+          <p style={{
+            fontSize: "14px",
+            color: "#777",
+            marginBottom: "24px",
+            lineHeight: 1.5,
+          }}>Then pay as you grow. Credit card required.</p>
+
+          <button style={{
+            width: "100%",
+            padding: "12px",
+            borderRadius: "10px",
+            border: "none",
+            backgroundColor: "#1a1a1a",
+            color: "#fff",
+            fontSize: "14px",
+            fontWeight: 600,
+            cursor: "pointer",
+            marginBottom: "6px",
+          }}>Get started</button>
+          <p style={{ fontSize: "12px", color: "#aaa", textAlign: "center", marginBottom: "28px" }}>We'll notify you before charges</p>
+
+          <div style={{ marginBottom: "24px" }}>
+            <span style={{ fontSize: "12px", fontWeight: 600, color: "#999", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "14px", display: "block" }}>Use it to:</span>
+            <PlanFeature text="Find what actually drives retention and conversion" />
+            <PlanFeature text="Run deeper experiments with advanced statistical methods" />
+            <PlanFeature text="Scale past 2M events without losing data or momentum" />
+          </div>
+
+          <div>
+            <span style={{ fontSize: "12px", fontWeight: 600, color: "#999", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "8px", display: "block" }}>Everything in Starter, plus:</span>
+            <PlanFeature text="Higher event volume and data retention" />
+            <PlanFeature text="Advanced analysis and experimentation" />
+            <PlanFeature text="Session Replay and Experimentation add-ons" />
+          </div>
         </div>
-        <h3>Fast enough for builders</h3>
-        <p>Get answers without waiting on slow workflows.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+
+        {/* Enterprise */}
+        <div style={{
+          backgroundColor: "#1a1a1a",
+          borderRadius: "16px",
+          padding: "32px 28px",
+          display: "flex",
+          flexDirection: "column",
+          color: "#fff",
+        }}>
+          <span style={{
+            fontSize: "11px",
+            fontWeight: 600,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "#888",
+            marginBottom: "8px",
+          }}>Enterprise</span>
+          <div style={{
+            fontSize: "36px",
+            fontWeight: 700,
+            letterSpacing: "-0.03em",
+            marginBottom: "4px",
+          }}>Custom</div>
+          <p style={{
+            fontSize: "14px",
+            color: "#999",
+            marginBottom: "24px",
+            lineHeight: 1.5,
+          }}>Custom event volume. Dedicated support.</p>
+
+          <button style={{
+            width: "100%",
+            padding: "12px",
+            borderRadius: "10px",
+            border: "1px solid #555",
+            backgroundColor: "transparent",
+            color: "#fff",
+            fontSize: "14px",
+            fontWeight: 600,
+            cursor: "pointer",
+            marginBottom: "6px",
+          }}>Talk to our team</button>
+          <p style={{ fontSize: "12px", color: "#666", textAlign: "center", marginBottom: "28px" }}>&nbsp;</p>
+
+          <div style={{ marginBottom: "24px" }}>
+            <span style={{ fontSize: "12px", fontWeight: 600, color: "#888", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "14px", display: "block" }}>Use it to:</span>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginBottom: "14px" }}>
+              <span style={{ color: "#D97706", flexShrink: 0, marginTop: "1px" }}><CheckIcon /></span>
+              <span style={{ fontSize: "14px", lineHeight: 1.5, color: "#ccc" }}>Run experiments across your entire product</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginBottom: "14px" }}>
+              <span style={{ color: "#D97706", flexShrink: 0, marginTop: "1px" }}><CheckIcon /></span>
+              <span style={{ fontSize: "14px", lineHeight: 1.5, color: "#ccc" }}>Control data access across teams and regions</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginBottom: "14px" }}>
+              <span style={{ color: "#D97706", flexShrink: 0, marginTop: "1px" }}><CheckIcon /></span>
+              <span style={{ fontSize: "14px", lineHeight: 1.5, color: "#ccc" }}>Manage SSO, permissions, and audit trails</span>
+            </div>
+          </div>
+
+          <div>
+            <span style={{ fontSize: "12px", fontWeight: 600, color: "#888", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "12px", display: "block" }}>Includes:</span>
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
+              {["Custom volume", "50K session replays/mo", "Unlimited cohorts", "Unlimited experiments", "5,000 AI prompts", "Advanced access controls"].map(t => (
+                <EntTag key={t} label={t} />
+              ))}
+            </div>
+          </div>
         </div>
-        <h3>Reliable when it matters</h3>
-        <p>Enterprise-grade reliability as your product scales.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="3" width="20" height="14" rx="2" stroke="white" stroke-width="2"/>
-            <path d="M8 21h8M12 17v4" stroke="white" stroke-width="2" stroke-linecap="round"/>
-          </svg>
+      </section>
+
+      {/* Startup Banner */}
+      <section style={{
+        maxWidth: "960px",
+        margin: "0 auto 48px",
+        padding: "0 24px",
+      }}>
+        <div style={{
+          backgroundColor: "#fff",
+          borderRadius: "16px",
+          padding: "28px 32px",
+          border: "1px solid #e5e2dd",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "16px",
+        }}>
+          <div>
+            <span style={{
+              fontSize: "11px",
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "#D97706",
+              display: "block",
+              marginBottom: "8px",
+            }}>Startup Program</span>
+            <div style={{
+              fontSize: "20px",
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+              marginBottom: "6px",
+            }}>Startups get $50,000+ in value, free for one year.</div>
+            <p style={{ fontSize: "14px", color: "#666", lineHeight: 1.5 }}>
+              Full Enterprise plan for 12 months. Under 20 employees and less than $10M raised? You likely qualify.
+            </p>
+          </div>
+          <button style={{
+            padding: "12px 24px",
+            borderRadius: "10px",
+            border: "1px solid #1a1a1a",
+            backgroundColor: "#fff",
+            color: "#1a1a1a",
+            fontSize: "14px",
+            fontWeight: 600,
+            cursor: "pointer",
+            whiteSpace: "nowrap",
+          }}>Check if you qualify</button>
         </div>
-        <h3>Works where you build</h3>
-        <p>Use your data inside Claude, Cursor, and any MCP tool.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M18 20V10M12 20V4M6 20v-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+      </section>
+
+      {/* AI Plan Recommender */}
+      <section style={{
+        textAlign: "center",
+        maxWidth: "600px",
+        margin: "0 auto 64px",
+        padding: "0 24px",
+      }}>
+        <h2 style={{
+          fontSize: "24px",
+          fontWeight: 700,
+          letterSpacing: "-0.02em",
+          marginBottom: "8px",
+        }}>Not sure which plan fits?</h2>
+        <p style={{
+          fontSize: "15px",
+          color: "#666",
+          marginBottom: "24px",
+        }}>Tell Amplitude AI what you're building. It'll recommend a plan.</p>
+        <div style={{
+          backgroundColor: "#fff",
+          borderRadius: "14px",
+          padding: "20px 24px",
+          border: "1px solid #e5e2dd",
+          textAlign: "left",
+        }}>
+          <div style={{
+            display: "flex",
+            alignItems: "flex-start",
+            gap: "12px",
+            marginBottom: "16px",
+          }}>
+            <div style={{
+              width: "32px",
+              height: "32px",
+              borderRadius: "50%",
+              backgroundColor: "#f0ede8",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+              fontSize: "14px",
+            }}>✦</div>
+            <p style={{ fontSize: "14px", color: "#666", lineHeight: 1.5, margin: 0 }}>
+              What are you building, and roughly how many events do you expect in the first few months?
+            </p>
+          </div>
+          <div style={{
+            display: "flex",
+            gap: "8px",
+          }}>
+            <input
+              type="text"
+              placeholder="Tell us what you're building..."
+              style={{
+                flex: 1,
+                padding: "10px 14px",
+                borderRadius: "10px",
+                border: "1px solid #ddd",
+                fontSize: "14px",
+                fontFamily: "inherit",
+                outline: "none",
+              }}
+            />
+            <button style={{
+              padding: "10px 20px",
+              borderRadius: "10px",
+              border: "none",
+              backgroundColor: "#1a1a1a",
+              color: "#fff",
+              fontSize: "13px",
+              fontWeight: 600,
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+            }}>Get recommendation</button>
+          </div>
         </div>
-        <h3>Built for real product decisions</h3>
-        <p>Go from data to insight, experimentation, and action in one place.</p>
-      </div>
+      </section>
+
+      {/* Value Props */}
+      <section style={{
+        maxWidth: "960px",
+        margin: "0 auto 64px",
+        padding: "0 24px",
+      }}>
+        <div style={{ textAlign: "center", marginBottom: "40px" }}>
+          <h2 style={{
+            fontSize: "28px",
+            fontWeight: 700,
+            letterSpacing: "-0.02em",
+            marginBottom: "8px",
+          }}>Built for product engineers.</h2>
+          <p style={{ fontSize: "15px", color: "#666" }}>
+            From data to insight, experimentation, and action in one place.
+          </p>
+        </div>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gap: "24px",
+        }}>
+          {[
+            {
+              icon: "⚡",
+              title: "Set up in minutes, not meetings",
+              desc: "Install via CLI or SDK. No sales call. No browser onboarding flow. Your coding agent can do it too.",
+            },
+            {
+              icon: "◎",
+              title: "Only Amplitude sees users",
+              desc: "Sentry sees requests. Datadog sees infrastructure. Only Amplitude connects errors, replays, and behavior to actual people.",
+            },
+            {
+              icon: "⬡",
+              title: "Works where you build",
+              desc: "Query your data from Claude, Cursor, GitHub, and any MCP tool. Your agents read the same data your dashboards show.",
+            },
+            {
+              icon: "△",
+              title: "One platform. One metric.",
+              desc: "Analytics, session replay, flags, experiments, and error monitoring. Pay for events. Everything else scales with it.",
+            },
+          ].map((item, i) => (
+            <div key={i} style={{
+              backgroundColor: "#fff",
+              borderRadius: "14px",
+              padding: "28px 24px",
+              border: "1px solid #e5e2dd",
+            }}>
+              <div style={{
+                width: "40px",
+                height: "40px",
+                borderRadius: "10px",
+                backgroundColor: "#f0ede8",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "18px",
+                marginBottom: "16px",
+              }}>{item.icon}</div>
+              <h3 style={{
+                fontSize: "16px",
+                fontWeight: 700,
+                marginBottom: "8px",
+                letterSpacing: "-0.01em",
+                lineHeight: 1.3,
+              }}>{item.title}</h3>
+              <p style={{
+                fontSize: "13px",
+                lineHeight: 1.6,
+                color: "#666",
+                margin: 0,
+              }}>{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQs - LLM optimized */}
+      <section style={{
+        maxWidth: "680px",
+        margin: "0 auto 64px",
+        padding: "0 24px",
+      }}>
+        <h2 style={{
+          fontSize: "28px",
+          fontWeight: 700,
+          letterSpacing: "-0.02em",
+          textAlign: "center",
+          marginBottom: "32px",
+        }}>FAQs</h2>
+
+        <FAQItem
+          question="Is there a free plan?"
+          answer="Yes. Amplitude offers two free options. The Starter plan includes 2M events per month, unlimited seats, and every Amplitude product including analytics, session replay, feature flags, experiments, guides and surveys, and AI agents. No credit card is required for Starter. The Free Plus plan also includes 2M events per month but requires a credit card, and you only pay if you exceed the free tier."
+        />
+        <FAQItem
+          question="How does event-based pricing work?"
+          answer="Amplitude prices on one metric: events. An event is any user action you choose to track, like a button click, page view, or purchase. All Amplitude products are included in every plan. You choose how many events you need, and session replay, experimentation, and other add-ons are priced as a percentage of your event spend. One number to track, one number to plan around."
+        />
+        <FAQItem
+          question="What happens if I go over my event limit?"
+          answer="Amplitude does not shut off access or lock your data if you exceed your plan. If you go over your included events, you pay the same per-event rate as your plan. There are no penalty rates and no surprise charges. We notify you before any charges apply."
+        />
+        <FAQItem
+          question="Do I need a credit card?"
+          answer="No. The Starter plan is completely free and does not require a credit card. You get 2M events, unlimited seats, and access to every Amplitude product. The Plus plan offers 2M free events but does require a credit card on file, and you are only charged if you exceed the free event threshold."
+        />
+        <FAQItem
+          question="Can I use Amplitude with my coding agent?"
+          answer="Yes. Amplitude's full platform is available via MCP (Model Context Protocol). Your coding agents in Claude Code, Cursor, Codex, and other MCP-compatible tools can query the same data your dashboards show. When an agent opens a PR, it can read funnel impact. When it rolls out a flag, it can watch guardrail metrics. Amplitude also offers a CLI Wizard for installing the SDK directly from your terminal."
+        />
+        <FAQItem
+          question="Can I set up Amplitude from the command line?"
+          answer="Yes. The Amplitude CLI Wizard lets you install the SDK, configure your project, and start sending events directly from your terminal. No browser-based setup flow required. Your coding agent can also handle setup through Amplitude's MCP integration and instrumentation skills."
+        />
+        <FAQItem
+          question="Do startups get discounts?"
+          answer="Amplitude's Startup Program gives qualifying startups the full Enterprise plan free for 12 months, a value of more than $50,000. You qualify if your company has fewer than 20 employees and has raised less than $10M. The program includes every Amplitude product, premium support, and enterprise-grade features at no cost for the first year."
+        />
+        <FAQItem
+          question="How is Amplitude different from PostHog?"
+          answer="Amplitude and PostHog both offer analytics, session replay, feature flags, and experiments. Amplitude differentiates in three areas: first, Amplitude connects error data, session replays, and behavioral analytics to individual users, not just request counts, so you can measure user impact rather than event volume. Second, Amplitude's experimentation includes sequential testing, CUPED variance reduction, and auto-rollback on guardrail breaches as standard features. Third, Amplitude prices on one metric, events, with everything included, while PostHog prices each product separately with individual free tiers and usage curves."
+        />
+      </section>
+
+      {/* Bottom CTA */}
+      <section style={{
+        textAlign: "center",
+        padding: "48px 24px 64px",
+        maxWidth: "600px",
+        margin: "0 auto",
+      }}>
+        <h2 style={{
+          fontSize: "clamp(24px, 4vw, 36px)",
+          fontWeight: 700,
+          letterSpacing: "-0.03em",
+          marginBottom: "20px",
+          lineHeight: 1.15,
+        }}>Start building. See what your<br/>users actually do.</h2>
+        <button style={{
+          padding: "14px 32px",
+          borderRadius: "12px",
+          border: "none",
+          backgroundColor: "#1a1a1a",
+          color: "#fff",
+          fontSize: "15px",
+          fontWeight: 600,
+          cursor: "pointer",
+        }}>Start for free</button>
+      </section>
+
+      {/* Footer */}
+      <footer style={{
+        borderTop: "1px solid #e5e2dd",
+        padding: "48px 32px 32px",
+        maxWidth: "960px",
+        margin: "0 auto",
+      }}>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+          gap: "32px",
+          fontSize: "13px",
+          color: "#888",
+          marginBottom: "32px",
+        }}>
+          <div>
+            <div style={{ fontWeight: 600, color: "#1a1a1a", marginBottom: "12px", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Platform</div>
+            {["AI Agents", "AI Visibility", "Product Analytics", "Session Replay", "Feature Flags", "Experimentation", "Web Analytics", "Guides and Surveys", "Activation", "Error Monitoring"].map(l => (
+              <div key={l} style={{ marginBottom: "8px", cursor: "pointer" }}>{l}</div>
+            ))}
+          </div>
+          <div>
+            <div style={{ fontWeight: 600, color: "#1a1a1a", marginBottom: "12px", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Compare</div>
+            {["Google Analytics", "Contentsquare", "Heap", "LaunchDarkly", "Mixpanel", "Optimizely", "PostHog", "Pendo", "Sentry"].map(l => (
+              <div key={l} style={{ marginBottom: "8px", cursor: "pointer" }}>{l}</div>
+            ))}
+          </div>
+          <div>
+            <div style={{ fontWeight: 600, color: "#1a1a1a", marginBottom: "12px", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Resources</div>
+            {["Resource Library", "Blog", "Developer Docs", "Agent Prompt Library", "Product Updates", "Amplitude Academy", "Events", "Glossary"].map(l => (
+              <div key={l} style={{ marginBottom: "8px", cursor: "pointer" }}>{l}</div>
+            ))}
+          </div>
+          <div>
+            <div style={{ fontWeight: 600, color: "#1a1a1a", marginBottom: "12px", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Partners & Support</div>
+            {["Status", "Contact Us", "Customer Help Center", "Community", "Partner Program", "Startup Program"].map(l => (
+              <div key={l} style={{ marginBottom: "8px", cursor: "pointer" }}>{l}</div>
+            ))}
+          </div>
+        </div>
+        <div style={{
+          borderTop: "1px solid #e5e2dd",
+          paddingTop: "20px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          fontSize: "12px",
+          color: "#aaa",
+          flexWrap: "wrap",
+          gap: "12px",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="11" stroke="#aaa" strokeWidth="1.5"/>
+              <path d="M8 16L12 6L16 16" stroke="#aaa" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <line x1="9.5" y1="13" x2="14.5" y2="13" stroke="#aaa" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+            <span>amplitude</span>
+          </div>
+          <span>Terms of Service · Privacy Notice · Acceptable Use Policy · Legal</span>
+          <span>© 2026 Amplitude, Inc. All rights reserved.</span>
+        </div>
+      </footer>
     </div>
-  </div>
-</section>
-
-
-<!-- 7. FAQ -->
-<section class="faq-section">
-  <div class="faq-inner">
-    <div class="faq-header">
-      <h2>FAQs</h2>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        <span class="faq-question">Is there a free plan?</span>
-        <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer">
-        <p>Yes. Starter is free with no credit card. Up to 10K MTUs and 2M events. No time limit.</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        <span class="faq-question">How does pricing work?</span>
-        <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer">
-        <p>Starter is free. Plus starts at $49/month and scales with usage. Enterprise is custom.</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        <span class="faq-question">What is an MTU?</span>
-        <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer">
-        <p>A unique user who triggers an event in a month.</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        <span class="faq-question">What happens if I go over?</span>
-        <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer">
-        <p>Starter won't charge you. Plus continues with usage fees. We notify you before charges.</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        <span class="faq-question">Do I need a credit card?</span>
-        <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer">
-        <p>No. Only when you upgrade to Plus.</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        <span class="faq-question">Can I use this with AI tools?</span>
-        <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer">
-        <p>Yes. Works with Claude, Cursor, and any MCP tool.</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-btn" onclick="toggleFaq(this)">
-        <span class="faq-question">Do startups get discounts?</span>
-        <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="faq-answer">
-        <p>Yes. One year of Growth free if you qualify.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- 8. FINAL CTA -->
-<section class="final-cta">
-  <h2>Start building with real user insight.</h2>
-  <div class="cta-actions">
-    <a href="#" class="btn btn-hero">Start for free</a>
-  </div>
-</section>
-
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-
-    <!-- Column grid -->
-    <div class="footer-top">
-
-      <div class="footer-col">
-        <p class="footer-col-heading">Platform</p>
-        <ul>
-          <li><a href="https://amplitude.com/ai">AI Agents</a></li>
-          <li><a href="https://amplitude.com/ai-visibility">AI Visibility</a></li>
-          <li><a href="https://amplitude.com/ai-feedback">AI Feedback</a></li>
-          <li><a href="https://amplitude.com/mcp-server">Amplitude MCP</a></li>
-          <li><a href="https://amplitude.com/amplitude-analytics">Product Analytics</a></li>
-          <li><a href="https://amplitude.com/web-analytics">Web Analytics</a></li>
-          <li><a href="https://amplitude.com/amplitude-experiment">Feature Experimentation</a></li>
-          <li><a href="https://amplitude.com/feature-management">Feature Management</a></li>
-          <li><a href="https://amplitude.com/web-experimentation">Web Experimentation</a></li>
-          <li><a href="https://amplitude.com/session-replay">Session Replay</a></li>
-          <li><a href="https://amplitude.com/guides-and-surveys">Guides and Surveys</a></li>
-          <li><a href="https://amplitude.com/activation">Activation</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <p class="footer-col-heading">Compare us</p>
-        <ul>
-          <li><a href="https://amplitude.com/compare/adobe">Adobe</a></li>
-          <li><a href="https://amplitude.com/compare/google-analytics">Google Analytics</a></li>
-          <li><a href="https://amplitude.com/compare/contentsquare">Contentsquare</a></li>
-          <li><a href="https://amplitude.com/compare/fullstory">Fullstory</a></li>
-          <li><a href="https://amplitude.com/compare/heap">Heap</a></li>
-          <li><a href="https://amplitude.com/compare/launchdarkly">LaunchDarkly</a></li>
-          <li><a href="https://amplitude.com/compare/mixpanel">Mixpanel</a></li>
-          <li><a href="https://amplitude.com/compare/optimizely">Optimizely</a></li>
-          <li><a href="https://amplitude.com/compare/pendo">Pendo</a></li>
-          <li><a href="https://amplitude.com/compare/posthog">PostHog</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <p class="footer-col-heading">Resources</p>
-        <ul>
-          <li><a href="https://amplitude.com/resources">Resource Library</a></li>
-          <li><a href="https://amplitude.com/blog">Blog</a></li>
-          <li><a href="https://amplitude.com/prompt-library">Agent Prompt Library</a></li>
-          <li><a href="https://amplitude.com/releases">Product Updates</a></li>
-          <li><a href="https://amplitude.com/amp-champs">Amp Champs</a></li>
-          <li><a href="https://academy.amplitude.com">Amplitude Academy</a></li>
-          <li><a href="https://amplitude.com/events">Events</a></li>
-          <li><a href="https://amplitude.com/glossary/terms">Glossary</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <p class="footer-col-heading">Partners & Support</p>
-        <ul>
-          <li><a href="https://status.amplitude.com">Status</a></li>
-          <li><a href="https://amplitude.com/contact">Contact Us</a></li>
-          <li><a href="https://gethelp.amplitude.com/hc/en-us">Customer Help Center</a></li>
-          <li><a href="https://amplitude.com/community">Community</a></li>
-          <li><a href="https://developers.amplitude.com/docs">Developer Docs</a></li>
-          <li><a href="https://amplitude.com/partner-program">Partner Program</a></li>
-          <li><a href="https://amplitude.com/partners">Partner Directory</a></li>
-          <li><a href="https://amplitude.com/affiliates">Become an affiliate</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <p class="footer-col-heading">Company</p>
-        <ul>
-          <li><a href="https://amplitude.com/company">About Us</a></li>
-          <li><a href="https://amplitude.com/careers">Careers</a></li>
-          <li><a href="https://amplitude.com/press">Press & News</a></li>
-          <li><a href="https://investors.amplitude.com">Investor Relations</a></li>
-          <li><a href="https://amplitude.com/diversity-equity-inclusion">Diversity, Equity & Inclusion</a></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <!-- Bottom bar -->
-    <div class="footer-bottom">
-      <a href="https://amplitude.com" class="footer-wordmark">
-        <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
-          <rect width="32" height="32" rx="7" fill="rgba(255,255,255,0.1)"/>
-          <path d="M8 24L16 8L24 24" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M10.8 19.2h10.4" stroke="white" stroke-width="2.4" stroke-linecap="round"/>
-        </svg>
-        amplitude
-      </a>
-
-      <div class="footer-legal">
-        <a href="https://amplitude.com/terms">Terms of Service</a>
-        <a href="https://amplitude.com/privacy/archive/2025-12">Privacy Notice</a>
-        <a href="https://amplitude.com/aup">Acceptable Use Policy</a>
-        <a href="https://amplitude.com/legal">Legal</a>
-      </div>
-
-      <div class="footer-social">
-        <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/company/amplitude-analytics" aria-label="LinkedIn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-          </svg>
-        </a>
-        <!-- Twitter / X -->
-        <a href="https://twitter.com/amplitude_hq" aria-label="Twitter">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
-        </a>
-        <!-- G2 -->
-        <a href="https://www.g2.com/products/amplitude/reviews" aria-label="G2">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 4.5a7.5 7.5 0 110 15 7.5 7.5 0 010-15zm0 2.5a5 5 0 100 10A5 5 0 0012 7zm1.5 2.5h-3v3.5l3 1.75-.75-1.3-1.75-1V10H13.5V9.5z"/>
-          </svg>
-        </a>
-      </div>
-
-      <p class="footer-copy">© 2026 Amplitude, Inc. All rights reserved.</p>
-    </div>
-
-  </div>
-</footer>
-
-
-<script>
-  function toggleFaq(btn) {
-    const answer = btn.nextElementSibling;
-    const isOpen = answer.classList.contains('open');
-    document.querySelectorAll('.faq-answer.open').forEach(el => el.classList.remove('open'));
-    document.querySelectorAll('.faq-btn.open').forEach(el => el.classList.remove('open'));
-    if (!isOpen) {
-      answer.classList.add('open');
-      btn.classList.add('open');
-    }
-  }
-
-  function handleResize() {
-    const grid = document.querySelector('.cards-grid');
-    const plusCard = grid && grid.children[1];
-    if (!plusCard) return;
-    plusCard.style.transform = window.innerWidth < 960 ? 'none' : 'translateY(-6px)';
-  }
-  handleResize();
-  window.addEventListener('resize', handleResize);
-</script>
-</body>
-</html>
+  );
+}

@@ -192,7 +192,7 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;bac
 <section class="hero">
   <div class="hero-inner">
     <h1>Simple pricing.<br>Everything included.</h1>
-    <p class="sub">Start free with 2M events. Every plan includes analytics, session replay, feature flags, experiments, AI, MCP, and unlimited seats. </p>
+    <p class="sub">Start free with 2M events. Every plan includes analytics, session replay, feature flags, experiments, AI, MCP, and unlimited seats. When your usage grows, you only pay based on events.</p>
   </div>
 </section>
 
@@ -589,74 +589,105 @@ function toggle(btn){
 
 /* AI Plan Recommender */
 function recommend() {
-  var input = document.getElementById('rec-input').value.trim().toLowerCase();
+  var raw  = document.getElementById('rec-input').value.trim();
+  var input = raw.toLowerCase();
   var result = document.getElementById('rec-result');
 
-  if (!input) {
+  if (!raw) {
     result.innerHTML = '<div class="rec-result-card rec-gentle">Tell us a little about what you\'re building and we\'ll recommend a plan.</div>';
     return;
   }
 
+  // ── 1. ENTERPRISE signals (exit immediately if matched) ──────────────────
   var enterpriseKws = [
-    'enterprise','security','compliance','sso','permissions','audit','governance',
-    'procurement','legal','global','multiple teams','regions','healthcare','fintech',
-    'hipaa','data residency','custom volume','dedicated support'
+    'enterprise','sso','saml','compliance','hipaa','soc2','audit log',
+    'governance','data residency','procurement','legal review',
+    'infosec','security review','multiple teams','thousands of employees',
+    'global team','fintech','healthcare','dedicated support','custom contract'
   ];
-  var plusKws = [
-    'growing','production','launch','scale','retention','conversion','experiments',
-    'feature flags','more events','paid product','startup','saas','usage growing',
-    'past 2m','need more volume'
-  ];
-  var starterKws = [
-    'trying','prototype','mvp','side project','early','just starting','small team',
-    'no credit card','free','testing','under 2m','learning'
-  ];
-
-  var plan = null;
-
   for (var i = 0; i < enterpriseKws.length; i++) {
-    if (input.indexOf(enterpriseKws[i]) !== -1) { plan = 'enterprise'; break; }
-  }
-  if (!plan) {
-    for (var i = 0; i < plusKws.length; i++) {
-      if (input.indexOf(plusKws[i]) !== -1) { plan = 'plus'; break; }
+    if (input.indexOf(enterpriseKws[i]) !== -1) {
+      return showResult('enterprise');
     }
   }
-  if (!plan) {
-    for (var i = 0; i < starterKws.length; i++) {
-      if (input.indexOf(starterKws[i]) !== -1) { plan = 'starter'; break; }
-    }
-  }
-  if (!plan) plan = 'fallback';
 
+  // ── 2. EVENT VOLUME — parse numbers like 500k, 1M, 10 million ───────────
+  var eventCount = null;
+  var volMatch = input.match(/([\d,]+\.?\d*)\s*(k|thousand|m|million|b|billion)?/i);
+  if (volMatch) {
+    var num  = parseFloat(volMatch[1].replace(/,/g, ''));
+    var unit = (volMatch[2] || '').toLowerCase();
+    if      (unit === 'k' || unit === 'thousand') num *= 1e3;
+    else if (unit === 'm' || unit === 'million')  num *= 1e6;
+    else if (unit === 'b' || unit === 'billion')  num *= 1e9;
+    eventCount = num;
+  }
+
+  // Volume is the clearest signal — it overrides context keywords below
+  if (eventCount !== null) {
+    if (eventCount > 2e6)  return showResult('plus');
+    if (eventCount <= 2e6) return showResult('starter');
+  }
+
+  // ── 3. PLUS signals — growing product, needs scale ───────────────────────
+  var plusKws = [
+    'growing','scaling','scale up','production','live product','live app',
+    'launched','already live','paying users','paying customers','revenue',
+    'retention','conversion','more than 2m','past 2m','exceed 2m',
+    'need more events','high volume','lots of users','millions of users',
+    'fast growing','b2b saas','saas product','funded startup','raised'
+  ];
+  for (var i = 0; i < plusKws.length; i++) {
+    if (input.indexOf(plusKws[i]) !== -1) return showResult('plus');
+  }
+
+  // ── 4. STARTER signals — founder-mode, pre-scale, early stage ───────────
+  var starterKws = [
+    'founder','solo','just me','side project','indie','bootstrapped',
+    'brand new','just started','just starting','getting started','early stage',
+    'pre-launch','haven\'t launched','not launched','first product','first app',
+    'mvp','prototype','testing','trying','learning','hobby','personal project',
+    'small team','two of us','three of us','under 2m','less than 2m','no users yet',
+    'first time','just exploring','no credit card','free plan'
+  ];
+  for (var i = 0; i < starterKws.length; i++) {
+    if (input.indexOf(starterKws[i]) !== -1) return showResult('starter');
+  }
+
+  // ── 5. FALLBACK ──────────────────────────────────────────────────────────
+  showResult('fallback');
+}
+
+function showResult(plan) {
   var plans = {
     starter: {
       name: 'Starter',
-      text: 'Start free with 2M events, unlimited seats, and the core tools to understand what users do. Best if you\'re trying Amplitude, building an MVP, or getting your first usage data in.',
+      text: 'Start free with 2M events, no credit card required. Good fit if you\'re early-stage, building an MVP, or just getting your first real usage data in.',
       cta: 'Start for free',
       btnClass: 'btn-outline'
     },
     plus: {
       name: 'Plus',
-      text: 'Start free, then pay as you grow. Best if your product is live, usage is growing, and you want more volume, deeper analysis, and reliable experimentation without losing visibility.',
+      text: 'Start free, then pay as your usage grows. Good fit if you\'re past early stage, expecting to exceed 2M events, and need reliable data as your product scales.',
       cta: 'Get started',
       btnClass: 'btn-dark'
     },
     enterprise: {
       name: 'Enterprise',
-      text: 'Talk to our team for custom volume, advanced controls, governance, and dedicated support. Best for large teams or organizations with strict security, compliance, and access requirements.',
+      text: 'Talk to our team. If you\'re dealing with compliance, security reviews, or need custom volume and controls, Enterprise is built for that. You probably won\'t need to figure this out yourself.',
       cta: 'Talk to our team',
       btnClass: 'btn-outline'
     },
     fallback: {
       name: 'Starter',
-      text: 'Start free with 2M events and no credit card. You can always move to Plus when your usage grows.',
+      text: 'When in doubt, start free. You get 2M events, every Amplitude product, and unlimited seats — no credit card needed. Move to Plus whenever your usage calls for it.',
       cta: 'Start for free',
       btnClass: 'btn-outline'
     }
   };
 
   var p = plans[plan];
+  var result = document.getElementById('rec-result');
   result.innerHTML =
     '<div class="rec-result-card">' +
       '<div class="rec-result-plan">Recommended plan</div>' +

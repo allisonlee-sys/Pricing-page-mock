@@ -5,132 +5,112 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Amplitude Pricing — Analytics, Session Replay, Experiments, Feature Flags</title>
 <meta name="description" content="Amplitude pricing starts free with 2M events. Analytics, session replay, feature flags, experiments, and error monitoring in one platform. No credit card required.">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color: #FAF9F6;
-    color: #1a1a1a;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: inherit; text-decoration: none; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;background:#FAF9F6;color:#1a1a1a;-webkit-font-smoothing:antialiased;min-width:1024px}
 
-  /* Nav */
-  .nav {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 14px 32px; background: #1a1a1a; position: sticky; top: 0; z-index: 100;
-  }
-  .nav-brand { display: flex; align-items: center; gap: 8px; color: #fff; font-weight: 600; font-size: 16px; letter-spacing: -0.02em; }
-  .nav-actions { display: flex; align-items: center; gap: 12px; }
-  .nav-link { color: #aaa; font-size: 14px; font-weight: 500; }
-  .btn-ghost { background: none; border: 1px solid #555; color: #fff; padding: 7px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; }
-  .btn-white { background: #fff; border: none; color: #1a1a1a; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+/* Nav — dark, matching PNG */
+.nav{display:flex;justify-content:space-between;align-items:center;padding:14px 32px;background:#1a1a1a;position:sticky;top:0;z-index:100}
+.nav-brand{display:flex;align-items:center;gap:8px;color:#fff;font-weight:600;font-size:16px;letter-spacing:-.02em}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.nav-link{color:#aaa;font-size:14px;font-weight:500}
+.btn-ghost{background:none;border:1px solid #555;color:#fff;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit}
+.btn-white{background:#fff;border:none;color:#1a1a1a;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
 
-  /* Hero */
-  .hero { text-align: center; padding: 64px 24px 24px; max-width: 720px; margin: 0 auto; }
-  .hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 700; line-height: 1.1; letter-spacing: -0.035em; margin-bottom: 16px; }
-  .hero h1 .accent { color: #D97706; }
-  .hero .subtitle { font-size: 17px; line-height: 1.55; color: #555; max-width: 540px; margin: 0 auto 32px; }
+/* Hero — white bg, bold black type matching PNG */
+.hero{background:#fff;text-align:center;padding:56px 24px 48px}
+.hero h1{font-family:'IBM Plex Sans',sans-serif;font-size:60px;font-weight:700;line-height:1.08;letter-spacing:-.03em;color:#1a1a1a;margin-bottom:16px}
+.hero .sub{font-size:17px;line-height:1.55;color:#888;max-width:480px;margin:0 auto 0}
 
-  /* Tool logos */
-  .tools-bar { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 8px; }
-  .tools-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #999; }
-  .tools-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; align-items: center; }
-  .tool-logo { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: #1a1a1a; }
-  .tool-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-  .tools-mcp { font-size: 13px; color: #999; font-weight: 500; }
+/* Tool logos — pill style with brand icons matching PNG */
+.tools-bar{display:flex;justify-content:center;align-items:center;gap:16px;padding:24px 24px 28px;background:#fff;border-bottom:1px solid #e5e2dd}
+.tools-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#aaa;margin-right:4px}
+.tool{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:#1a1a1a;padding:8px 18px;background:#fff;border:1px solid #e5e2dd;border-radius:24px}
+.tool svg{flex-shrink:0}
+.tools-mcp{font-size:14px;color:#aaa;font-weight:400}
 
-  /* Plan Cards */
-  .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 960px; margin: 24px auto 48px; padding: 0 24px; }
-  .plan-card { background: #fff; border-radius: 16px; padding: 32px 28px; border: 1px solid #e5e2dd; display: flex; flex-direction: column; }
-  .plan-card.popular { border: 2px solid #1a1a1a; position: relative; }
-  .plan-card.dark { background: #1a1a1a; color: #fff; }
-  .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #fff; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 16px; border-radius: 20px; white-space: nowrap; }
-  .plan-tier { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #999; margin-bottom: 8px; }
-  .plan-card.dark .plan-tier { color: #888; }
-  .plan-price { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 4px; }
-  .plan-price-sub { font-size: 14px; color: #777; font-weight: 400; }
-  .plan-desc { font-size: 14px; color: #777; margin-bottom: 24px; line-height: 1.5; }
-  .plan-card.dark .plan-desc { color: #999; }
+/* Plan Cards */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:40px auto;padding:0 24px}
+.card{background:#fff;border-radius:16px;padding:32px 28px;border:1px solid #e5e2dd;display:flex;flex-direction:column}
+.card.pop{border:2px solid #1a1a1a;position:relative}
+.card.dark{background:#1a1a1a;color:#fff}
+.pop-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 16px;border-radius:20px;white-space:nowrap}
+.tier{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#999;margin-bottom:8px}
+.card.dark .tier{color:#888}
+.price{font-size:36px;font-weight:700;letter-spacing:-.03em;margin-bottom:4px}
+.price .sm{font-size:14px;font-weight:400;color:#777}
+.desc{font-size:14px;color:#777;margin-bottom:24px;line-height:1.5}
+.card.dark .desc{color:#999}
 
-  .btn-primary { width: 100%; padding: 12px; border-radius: 10px; border: none; background: #1a1a1a; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; margin-bottom: 6px; }
-  .btn-outline { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #1a1a1a; background: #fff; color: #1a1a1a; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; margin-bottom: 6px; }
-  .btn-outline-dark { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #555; background: transparent; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; margin-bottom: 6px; }
-  .btn-note { font-size: 12px; color: #aaa; text-align: center; margin-bottom: 28px; display: block; }
+.btn-dark{width:100%;padding:12px;border-radius:10px;border:none;background:#1a1a1a;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:6px}
+.btn-outline{width:100%;padding:12px;border-radius:10px;border:1px solid #1a1a1a;background:#fff;color:#1a1a1a;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:6px}
+.btn-outline-inv{width:100%;padding:12px;border-radius:10px;border:1px solid #555;background:transparent;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:6px}
+.btn-note{font-size:12px;color:#aaa;text-align:center;margin-bottom:28px;display:block}
 
-  .section-label { font-size: 12px; font-weight: 600; color: #999; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 14px; }
-  .plan-card.dark .section-label { color: #888; }
+.label{font-size:12px;font-weight:600;color:#999;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}
+.card.dark .label{color:#888}
+.feat{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px}
+.feat .ck{color:#1E61F0;flex-shrink:0;margin-top:1px;font-size:15px}
+.feat .tx{font-size:14px;line-height:1.5;color:#333}
+.card.dark .feat .tx{color:#ccc}
 
-  .feature-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
-  .feature-check { color: #D97706; flex-shrink: 0; margin-top: 1px; font-size: 16px; line-height: 1; }
-  .feature-text { font-size: 14px; line-height: 1.5; color: #333; }
-  .plan-card.dark .feature-text { color: #ccc; }
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{display:inline-block;padding:4px 10px;border-radius:6px;background:#f0ede8;font-size:12px;font-weight:500;color:#555}
+.tag-dark{display:inline-block;padding:4px 10px;border-radius:6px;background:#333;font-size:12px;font-weight:500;color:#fff}
 
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tag { display: inline-block; padding: 4px 10px; border-radius: 6px; background: #f0ede8; font-size: 12px; font-weight: 500; color: #555; }
-  .tag-dark { display: inline-block; padding: 4px 10px; border-radius: 6px; background: #333; font-size: 12px; font-weight: 500; color: #fff; }
+/* Startup */
+.startup{max-width:960px;margin:0 auto 48px;padding:0 24px}
+.startup-card{background:#fff;border-radius:16px;padding:28px 32px;border:1px solid #e5e2dd;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.startup-lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#1E61F0;margin-bottom:8px}
+.startup-title{font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px}
+.startup-desc{font-size:14px;color:#666;line-height:1.5}
 
-  /* Startup */
-  .startup-banner { max-width: 960px; margin: 0 auto 48px; padding: 0 24px; }
-  .startup-card { background: #fff; border-radius: 16px; padding: 28px 32px; border: 1px solid #e5e2dd; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-  .startup-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #D97706; margin-bottom: 8px; }
-  .startup-title { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
-  .startup-desc { font-size: 14px; color: #666; line-height: 1.5; }
+/* AI Recommender */
+.rec{text-align:center;max-width:600px;margin:0 auto 64px;padding:0 24px}
+.rec h2{font-size:24px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
+.rec .rec-sub{font-size:15px;color:#666;margin-bottom:24px}
+.rec-box{background:#fff;border-radius:14px;padding:20px 24px;border:1px solid #e5e2dd;text-align:left}
+.rec-prompt{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
+.rec-icon{width:32px;height:32px;border-radius:50%;background:#f0ede8;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.rec-prompt p{font-size:14px;color:#666;line-height:1.5}
+.rec-row{display:flex;gap:8px}
+.rec-input{flex:1;padding:10px 14px;border-radius:10px;border:1px solid #ddd;font-size:14px;font-family:inherit;outline:none}
+.rec-btn{padding:10px 20px;border-radius:10px;border:none;background:#1a1a1a;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
 
-  /* AI Recommender */
-  .recommender { text-align: center; max-width: 600px; margin: 0 auto 64px; padding: 0 24px; }
-  .recommender h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
-  .recommender .rec-sub { font-size: 15px; color: #666; margin-bottom: 24px; }
-  .rec-box { background: #fff; border-radius: 14px; padding: 20px 24px; border: 1px solid #e5e2dd; text-align: left; }
-  .rec-prompt { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
-  .rec-icon { width: 32px; height: 32px; border-radius: 50%; background: #f0ede8; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; }
-  .rec-prompt p { font-size: 14px; color: #666; line-height: 1.5; }
-  .rec-input-row { display: flex; gap: 8px; }
-  .rec-input { flex: 1; padding: 10px 14px; border-radius: 10px; border: 1px solid #ddd; font-size: 14px; font-family: inherit; outline: none; }
-  .rec-btn { padding: 10px 20px; border-radius: 10px; border: none; background: #1a1a1a; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; white-space: nowrap; }
+/* Value Props */
+.vp{max-width:960px;margin:0 auto 64px;padding:0 24px}
+.vp-head{text-align:center;margin-bottom:40px}
+.vp-head h2{font-size:28px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
+.vp-head p{font-size:15px;color:#666}
+.vp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.vp-card{background:#fff;border-radius:14px;padding:28px 24px;border:1px solid #e5e2dd}
+.vp-icon{width:40px;height:40px;border-radius:10px;background:#f0ede8;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:16px}
+.vp-card h3{font-size:16px;font-weight:700;margin-bottom:8px;letter-spacing:-.01em;line-height:1.3}
+.vp-card p{font-size:13px;line-height:1.6;color:#666}
 
-  /* Value Props */
-  .value-section { max-width: 960px; margin: 0 auto 64px; padding: 0 24px; }
-  .value-header { text-align: center; margin-bottom: 40px; }
-  .value-header h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
-  .value-header p { font-size: 15px; color: #666; }
-  .value-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
-  .value-card { background: #fff; border-radius: 14px; padding: 28px 24px; border: 1px solid #e5e2dd; }
-  .value-icon { width: 40px; height: 40px; border-radius: 10px; background: #f0ede8; display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 16px; }
-  .value-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; line-height: 1.3; }
-  .value-card p { font-size: 13px; line-height: 1.6; color: #666; }
+/* FAQs */
+.faq{max-width:680px;margin:0 auto 64px;padding:0 24px}
+.faq h2{font-size:28px;font-weight:700;letter-spacing:-.02em;text-align:center;margin-bottom:32px}
+.faq-item{border-bottom:1px solid #e5e2dd;padding:20px 0}
+.faq-q{display:flex;justify-content:space-between;align-items:center;width:100%;background:none;border:none;cursor:pointer;padding:0;text-align:left;font-family:inherit}
+.faq-q span:first-child{font-size:15px;font-weight:600;color:#1a1a1a;line-height:1.4}
+.faq-ch{transition:transform .2s;color:#666;flex-shrink:0;margin-left:16px;font-size:18px}
+.faq-ch.open{transform:rotate(180deg)}
+.faq-a{margin-top:12px;font-size:14px;line-height:1.65;color:#444;max-width:640px;display:none}
+.faq-a.open{display:block}
 
-  /* FAQs */
-  .faq-section { max-width: 680px; margin: 0 auto 64px; padding: 0 24px; }
-  .faq-section h2 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; text-align: center; margin-bottom: 32px; }
-  .faq-item { border-bottom: 1px solid #e5e2dd; padding: 20px 0; }
-  .faq-question { display: flex; justify-content: space-between; align-items: center; width: 100%; background: none; border: none; cursor: pointer; padding: 0; text-align: left; font-family: inherit; }
-  .faq-question span:first-child { font-size: 15px; font-weight: 600; color: #1a1a1a; line-height: 1.4; }
-  .faq-chevron { transition: transform 0.2s ease; color: #666; flex-shrink: 0; margin-left: 16px; font-size: 18px; }
-  .faq-chevron.open { transform: rotate(180deg); }
-  .faq-answer { margin-top: 12px; font-size: 14px; line-height: 1.65; color: #444; max-width: 640px; display: none; }
-  .faq-answer.open { display: block; }
+/* Bottom CTA */
+.bcta{text-align:center;padding:48px 24px 64px;max-width:600px;margin:0 auto}
+.bcta h2{font-size:clamp(24px,4vw,36px);font-weight:700;letter-spacing:-.03em;margin-bottom:20px;line-height:1.15}
+.btn-cta{padding:14px 32px;border-radius:12px;border:none;background:#1a1a1a;color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit}
 
-  /* Bottom CTA */
-  .bottom-cta { text-align: center; padding: 48px 24px 64px; max-width: 600px; margin: 0 auto; }
-  .bottom-cta h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 20px; line-height: 1.15; }
-
-  /* Footer */
-  .footer { border-top: 1px solid #e5e2dd; padding: 48px 32px 32px; max-width: 960px; margin: 0 auto; }
-  .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 32px; font-size: 13px; color: #888; margin-bottom: 32px; }
-  .footer-col-title { font-weight: 600; color: #1a1a1a; margin-bottom: 12px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .footer-col div { margin-bottom: 8px; cursor: pointer; }
-  .footer-bottom { border-top: 1px solid #e5e2dd; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #aaa; flex-wrap: wrap; gap: 12px; }
-
-  @media (max-width: 680px) {
-    .plans { grid-template-columns: 1fr; }
-    .value-grid { grid-template-columns: 1fr 1fr; }
-    .startup-card { flex-direction: column; align-items: flex-start; }
-    .rec-input-row { flex-direction: column; }
-    .nav { padding: 14px 16px; }
-    .hero { padding: 48px 16px 24px; }
-  }
+/* Footer */
+.footer{border-top:1px solid #e5e2dd;padding:48px 32px 32px;max-width:960px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:32px;font-size:13px;color:#888;margin-bottom:32px}
+.footer-col-title{font-weight:600;color:#1a1a1a;margin-bottom:12px;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.footer-col div{margin-bottom:8px;cursor:pointer}
+.footer-bottom{border-top:1px solid #e5e2dd;padding-top:20px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#aaa;flex-wrap:wrap;gap:12px}
 </style>
 </head>
 <body>
@@ -138,8 +118,11 @@
 <!-- Nav -->
 <nav class="nav">
   <div class="nav-brand">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#fff" stroke-width="1.5"/><path d="M8 16L12 6L16 16" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="9.5" y1="13" x2="14.5" y2="13" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
-    amplitude
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+      <circle cx="14" cy="14" r="13" stroke="#fff" stroke-width="1.5"/>
+      <path d="M6 14C8 10 10 6 14 14C18 22 20 18 22 14" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+    </svg>
+    Amplitude
   </div>
   <div class="nav-actions">
     <span class="nav-link">Pricing</span>
@@ -148,120 +131,98 @@
   </div>
 </nav>
 
-<!-- Hero -->
+<!-- Hero — from PNG -->
 <section class="hero">
-  <h1>See what users do.<br><span class="accent">Fix what breaks.</span><br>Ship what works.</h1>
-  <p class="subtitle">Analytics, session replay, feature flags, experiments, and error monitoring. One platform. One event metric. Start free. No credit card required.</p>
-  <div class="tools-bar">
-    <span class="tools-label">Works inside your tools</span>
-    <div class="tools-list">
-      <span class="tool-logo"><span class="tool-dot" style="background:#D97757"></span>Claude</span>
-      <span class="tool-logo"><span class="tool-dot" style="background:#000"></span>Cursor</span>
-      <span class="tool-logo"><span class="tool-dot" style="background:#E5484D"></span>Lovable</span>
-      <span class="tool-logo"><span class="tool-dot" style="background:#333"></span>GitHub</span>
-      <span class="tool-logo"><span class="tool-dot" style="background:#5E6AD2"></span>Linear</span>
-      <span class="tools-mcp">+ any MCP tool</span>
-    </div>
-  </div>
+  <h1>Build something people<br>actually use.</h1>
+  <p class="sub">See what users do, fix what matters, and scale when it works. Start free. No credit card.</p>
 </section>
 
-<!-- Plan Cards -->
+<!-- Tool logos — from PNG -->
+<div class="tools-bar">
+  <span class="tools-label">Works inside your tools</span>
+  <span class="tool"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="2" fill="#D97757"/><path d="M9 2V4.5M9 13.5V16M2 9H4.5M13.5 9H16M4.05 4.05L5.82 5.82M12.18 12.18L13.95 13.95M4.05 13.95L5.82 12.18M12.18 5.82L13.95 4.05" stroke="#D97757" stroke-width="1.6" stroke-linecap="round"/></svg>Claude</span>
+  <span class="tool"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="3" fill="#1a1a1a"/><path d="M6 12L9 6L12 12" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="7" y1="10.5" x2="11" y2="10.5" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg>Cursor</span>
+  <span class="tool"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 15C9 15 2.5 10.5 2.5 6.5C2.5 4.2 4.3 2.5 6.2 2.5C7.5 2.5 8.5 3.3 9 4.2C9.5 3.3 10.5 2.5 11.8 2.5C13.7 2.5 15.5 4.2 15.5 6.5C15.5 10.5 9 15 9 15Z" fill="#E5484D"/></svg>Lovable</span>
+  <span class="tool"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M9 1C4.58 1 1 4.58 1 9C1 12.54 3.29 15.53 6.47 16.59C6.87 16.66 7.02 16.42 7.02 16.21V14.78C4.73 15.27 4.26 13.71 4.26 13.71C3.89 12.77 3.35 12.53 3.35 12.53C2.6 12.02 3.4 12.03 3.4 12.03C4.22 12.09 4.65 12.87 4.65 12.87C5.37 14.1 6.55 13.74 7.05 13.53C7.12 13.01 7.33 12.66 7.56 12.45C5.78 12.24 3.92 11.5 3.92 8.46C3.92 7.56 4.24 6.83 4.67 6.26C4.59 6.04 4.32 5.22 4.74 4.1C4.74 4.1 5.43 3.87 7.01 4.93C7.68 4.74 8.35 4.65 9.02 4.64C9.69 4.65 10.36 4.74 11.03 4.93C12.61 3.87 13.3 4.1 13.3 4.1C13.72 5.22 13.45 6.04 13.37 6.26C13.8 6.83 14.12 7.56 14.12 8.46C14.12 11.51 12.25 12.24 10.47 12.44C10.76 12.7 11.01 13.19 11.01 13.95V16.21C11.01 16.42 11.16 16.67 11.57 16.59C14.74 15.53 17.02 12.54 17.02 9C17 4.58 13.42 1 9 1Z" fill="#333"/></svg>GitHub</span>
+  <span class="tools-mcp">· any MCP tool</span>
+</div>
+
+<!-- Plan Cards — from PDF -->
 <section class="plans">
 
   <!-- Starter -->
-  <div class="plan-card">
-    <div class="plan-tier">Starter</div>
-    <div class="plan-price">Free</div>
-    <p class="plan-desc">2M events included. No credit card.</p>
+  <div class="card">
+    <div class="tier">Starter</div>
+    <div class="price">Free</div>
+    <p class="desc">2M events included. No credit card.</p>
     <button class="btn-outline">Start for free</button>
     <span class="btn-note">No credit card required</span>
-
-    <div class="section-label">Use it to:</div>
-    <div class="feature-row"><span class="feature-check">✓</span><span class="feature-text">Find what's broken in your product</span></div>
-    <div class="feature-row"><span class="feature-check">✓</span><span class="feature-text">Replay real user sessions to debug faster</span></div>
-    <div class="feature-row"><span class="feature-check">✓</span><span class="feature-text">Test changes with feature flags and experiments</span></div>
-
+    <div class="label">Use it to:</div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Find what's broken in your product</span></div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Replay real user sessions to debug faster</span></div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Test changes with feature flags and experiments</span></div>
     <div style="margin-top:20px">
-      <div class="section-label">Includes:</div>
+      <div class="label">Includes:</div>
       <div class="tags">
-        <span class="tag">Analytics</span>
-        <span class="tag">Session Replay</span>
-        <span class="tag">Feature Flags</span>
-        <span class="tag">Experiments</span>
-        <span class="tag">Guides & Surveys</span>
-        <span class="tag">AI Agents</span>
-        <span class="tag">MCP</span>
-        <span class="tag">AI Visibility</span>
-        <span class="tag">Activation</span>
-        <span class="tag">Unlimited seats</span>
+        <span class="tag">Analytics</span><span class="tag">Session Replay</span><span class="tag">Feature Flags</span><span class="tag">Experiments</span><span class="tag">Guides & Surveys</span><span class="tag">AI Agents</span><span class="tag">MCP</span><span class="tag">AI Visibility</span><span class="tag">Activation</span><span class="tag">Unlimited seats</span>
       </div>
     </div>
   </div>
 
   <!-- Plus -->
-  <div class="plan-card popular">
-    <div class="popular-badge">Most popular</div>
-    <div class="plan-tier">Plus</div>
-    <div class="plan-price">Free <span class="plan-price-sub">up to 2M events</span></div>
-    <p class="plan-desc">Then pay as you grow. Credit card required.</p>
-    <button class="btn-primary">Get started</button>
+  <div class="card pop">
+    <div class="pop-badge">Most popular</div>
+    <div class="tier">Plus</div>
+    <div class="price">Free <span class="sm">up to 2M events</span></div>
+    <p class="desc">Then pay as you grow. Credit card required.</p>
+    <button class="btn-dark">Get started</button>
     <span class="btn-note">We'll notify you before charges</span>
-
-    <div class="section-label">Use it to:</div>
-    <div class="feature-row"><span class="feature-check">✓</span><span class="feature-text">Find what actually drives retention and conversion</span></div>
-    <div class="feature-row"><span class="feature-check">✓</span><span class="feature-text">Run deeper experiments with advanced statistical methods</span></div>
-    <div class="feature-row"><span class="feature-check">✓</span><span class="feature-text">Scale past 2M events without losing data or momentum</span></div>
-
+    <div class="label">Use it to:</div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Find what actually drives retention and conversion</span></div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Run deeper experiments with advanced statistical methods</span></div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Scale past 2M events without losing data or momentum</span></div>
     <div style="margin-top:20px">
-      <div class="section-label">Everything in Starter, plus:</div>
-      <div class="feature-row"><span class="feature-check">✓</span><span class="feature-text">Higher event volume and data retention</span></div>
-      <div class="feature-row"><span class="feature-check">✓</span><span class="feature-text">Advanced analysis and experimentation</span></div>
-      <div class="feature-row"><span class="feature-check">✓</span><span class="feature-text">Session Replay and Experimentation add-ons</span></div>
+      <div class="label">Everything in Starter, plus:</div>
+      <div class="feat"><span class="ck">✓</span><span class="tx">Higher event volume and data retention</span></div>
+      <div class="feat"><span class="ck">✓</span><span class="tx">Advanced analysis and experimentation</span></div>
+      <div class="feat"><span class="ck">✓</span><span class="tx">Session Replay and Experimentation add-ons</span></div>
     </div>
   </div>
 
   <!-- Enterprise -->
-  <div class="plan-card dark">
-    <div class="plan-tier">Enterprise</div>
-    <div class="plan-price">Custom</div>
-    <p class="plan-desc">Custom event volume. Dedicated support.</p>
-    <button class="btn-outline-dark">Talk to our team</button>
+  <div class="card dark">
+    <div class="tier">Enterprise</div>
+    <div class="price">Custom</div>
+    <p class="desc">Custom event volume. Dedicated support.</p>
+    <button class="btn-outline-inv">Talk to our team</button>
     <span class="btn-note">&nbsp;</span>
-
-    <div class="section-label">Use it to:</div>
-    <div class="feature-row"><span class="feature-check">✓</span><span class="feature-text" style="color:#ccc">Run experiments across your entire product</span></div>
-    <div class="feature-row"><span class="feature-check">✓</span><span class="feature-text" style="color:#ccc">Control data access across teams and regions</span></div>
-    <div class="feature-row"><span class="feature-check">✓</span><span class="feature-text" style="color:#ccc">Manage SSO, permissions, and audit trails</span></div>
-
+    <div class="label">Use it to:</div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Run experiments across your entire product</span></div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Control data access across teams and regions</span></div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Manage SSO, permissions, and audit trails</span></div>
     <div style="margin-top:20px">
-      <div class="section-label">Includes:</div>
+      <div class="label">Includes:</div>
       <div class="tags">
-        <span class="tag-dark">Custom volume</span>
-        <span class="tag-dark">50K session replays/mo</span>
-        <span class="tag-dark">Unlimited cohorts</span>
-        <span class="tag-dark">Unlimited experiments</span>
-        <span class="tag-dark">5,000 AI prompts</span>
-        <span class="tag-dark">Advanced access controls</span>
+        <span class="tag-dark">Custom volume</span><span class="tag-dark">50K session replays/mo</span><span class="tag-dark">Unlimited cohorts</span><span class="tag-dark">Unlimited experiments</span><span class="tag-dark">5,000 AI prompts</span><span class="tag-dark">Advanced access controls</span>
       </div>
     </div>
   </div>
-
 </section>
 
 <!-- Startup Banner -->
-<section class="startup-banner">
+<section class="startup">
   <div class="startup-card">
     <div>
-      <div class="startup-label">Startup Program</div>
+      <div class="startup-lbl">Startup Program</div>
       <div class="startup-title">Startups get $50,000+ in value, free for one year.</div>
       <p class="startup-desc">Full Enterprise plan for 12 months. Under 20 employees and less than $10M raised? You likely qualify.</p>
     </div>
-    <button class="btn-outline" style="width:auto; padding:12px 24px">Check if you qualify</button>
+    <button class="btn-outline" style="width:auto;padding:12px 24px">Check if you qualify</button>
   </div>
 </section>
 
-<!-- AI Plan Recommender -->
-<section class="recommender">
+<!-- AI Recommender -->
+<section class="rec">
   <h2>Not sure which plan fits?</h2>
   <p class="rec-sub">Tell Amplitude AI what you're building. It'll recommend a plan.</p>
   <div class="rec-box">
@@ -269,7 +230,7 @@
       <div class="rec-icon">✦</div>
       <p>What are you building, and roughly how many events do you expect in the first few months?</p>
     </div>
-    <div class="rec-input-row">
+    <div class="rec-row">
       <input type="text" class="rec-input" placeholder="Tell us what you're building...">
       <button class="rec-btn">Get recommendation</button>
     </div>
@@ -277,29 +238,29 @@
 </section>
 
 <!-- Value Props -->
-<section class="value-section">
-  <div class="value-header">
+<section class="vp">
+  <div class="vp-head">
     <h2>Built for product engineers.</h2>
     <p>From data to insight, experimentation, and action in one place.</p>
   </div>
-  <div class="value-grid">
-    <div class="value-card">
-      <div class="value-icon">⚡</div>
+  <div class="vp-grid">
+    <div class="vp-card">
+      <div class="vp-icon">⚡</div>
       <h3>Set up in minutes, not meetings</h3>
       <p>Install via CLI or SDK. No sales call. No browser onboarding flow. Your coding agent can do it too.</p>
     </div>
-    <div class="value-card">
-      <div class="value-icon">◎</div>
+    <div class="vp-card">
+      <div class="vp-icon">◎</div>
       <h3>Only Amplitude sees users</h3>
       <p>Sentry sees requests. Datadog sees infrastructure. Only Amplitude connects errors, replays, and behavior to actual people.</p>
     </div>
-    <div class="value-card">
-      <div class="value-icon">⬡</div>
+    <div class="vp-card">
+      <div class="vp-icon">⬡</div>
       <h3>Works where you build</h3>
       <p>Query your data from Claude, Cursor, GitHub, and any MCP tool. Your agents read the same data your dashboards show.</p>
     </div>
-    <div class="value-card">
-      <div class="value-icon">△</div>
+    <div class="vp-card">
+      <div class="vp-icon">△</div>
       <h3>One platform. One metric.</h3>
       <p>Analytics, session replay, flags, experiments, and error monitoring. Pay for events. Everything else scales with it.</p>
     </div>
@@ -307,78 +268,46 @@
 </section>
 
 <!-- FAQs -->
-<section class="faq-section">
+<section class="faq">
   <h2>FAQs</h2>
-
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
-      <span>Is there a free plan?</span>
-      <span class="faq-chevron">▾</span>
-    </button>
-    <div class="faq-answer">Yes. Amplitude offers two free options. The Starter plan includes 2M events per month, unlimited seats, and every Amplitude product including analytics, session replay, feature flags, experiments, guides and surveys, and AI agents. No credit card is required for Starter. The Free Plus plan also includes 2M events per month but requires a credit card, and you only pay if you exceed the free tier.</div>
+    <button class="faq-q" onclick="toggle(this)"><span>Is there a free plan?</span><span class="faq-ch">▾</span></button>
+    <div class="faq-a">Yes. Amplitude offers two free options. The Starter plan includes 2M events per month, unlimited seats, and every Amplitude product including analytics, session replay, feature flags, experiments, guides and surveys, and AI agents. No credit card is required for Starter. The Free Plus plan also includes 2M events per month but requires a credit card, and you only pay if you exceed the free tier.</div>
   </div>
-
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
-      <span>How does event-based pricing work?</span>
-      <span class="faq-chevron">▾</span>
-    </button>
-    <div class="faq-answer">Amplitude prices on one metric: events. An event is any user action you choose to track, like a button click, page view, or purchase. All Amplitude products are included in every plan. You choose how many events you need, and session replay, experimentation, and other add-ons are priced as a percentage of your event spend. One number to track, one number to plan around.</div>
+    <button class="faq-q" onclick="toggle(this)"><span>How does event-based pricing work?</span><span class="faq-ch">▾</span></button>
+    <div class="faq-a">Amplitude prices on one metric: events. An event is any user action you choose to track, like a button click, page view, or purchase. All Amplitude products are included in every plan. You choose how many events you need, and session replay, experimentation, and other add-ons are priced as a percentage of your event spend. One number to track, one number to plan around.</div>
   </div>
-
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
-      <span>What happens if I go over my event limit?</span>
-      <span class="faq-chevron">▾</span>
-    </button>
-    <div class="faq-answer">Amplitude does not shut off access or lock your data if you exceed your plan. If you go over your included events, you pay the same per-event rate as your plan. There are no penalty rates and no surprise charges. We notify you before any charges apply.</div>
+    <button class="faq-q" onclick="toggle(this)"><span>What happens if I go over my event limit?</span><span class="faq-ch">▾</span></button>
+    <div class="faq-a">Amplitude does not shut off access or lock your data if you exceed your plan. If you go over your included events, you pay the same per-event rate as your plan. There are no penalty rates and no surprise charges. We notify you before any charges apply.</div>
   </div>
-
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
-      <span>Do I need a credit card?</span>
-      <span class="faq-chevron">▾</span>
-    </button>
-    <div class="faq-answer">No. The Starter plan is completely free and does not require a credit card. You get 2M events, unlimited seats, and access to every Amplitude product. The Plus plan offers 2M free events but does require a credit card on file, and you are only charged if you exceed the free event threshold.</div>
+    <button class="faq-q" onclick="toggle(this)"><span>Do I need a credit card?</span><span class="faq-ch">▾</span></button>
+    <div class="faq-a">No. The Starter plan is completely free and does not require a credit card. You get 2M events, unlimited seats, and access to every Amplitude product. The Plus plan offers 2M free events but does require a credit card on file, and you are only charged if you exceed the free event threshold.</div>
   </div>
-
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
-      <span>Can I use Amplitude with my coding agent?</span>
-      <span class="faq-chevron">▾</span>
-    </button>
-    <div class="faq-answer">Yes. Amplitude's full platform is available via MCP (Model Context Protocol). Your coding agents in Claude Code, Cursor, Codex, and other MCP-compatible tools can query the same data your dashboards show. When an agent opens a PR, it can read funnel impact. When it rolls out a flag, it can watch guardrail metrics. Amplitude also offers a CLI Wizard for installing the SDK directly from your terminal.</div>
+    <button class="faq-q" onclick="toggle(this)"><span>Can I use Amplitude with my coding agent?</span><span class="faq-ch">▾</span></button>
+    <div class="faq-a">Yes. Amplitude's full platform is available via MCP (Model Context Protocol). Your coding agents in Claude Code, Cursor, Codex, and other MCP-compatible tools can query the same data your dashboards show. When an agent opens a PR, it can read funnel impact. When it rolls out a flag, it can watch guardrail metrics. Amplitude also offers a CLI Wizard for installing the SDK directly from your terminal.</div>
   </div>
-
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
-      <span>Can I set up Amplitude from the command line?</span>
-      <span class="faq-chevron">▾</span>
-    </button>
-    <div class="faq-answer">Yes. The Amplitude CLI Wizard lets you install the SDK, configure your project, and start sending events directly from your terminal. No browser-based setup flow required. Your coding agent can also handle setup through Amplitude's MCP integration and instrumentation skills.</div>
+    <button class="faq-q" onclick="toggle(this)"><span>Can I set up Amplitude from the command line?</span><span class="faq-ch">▾</span></button>
+    <div class="faq-a">Yes. The Amplitude CLI Wizard lets you install the SDK, configure your project, and start sending events directly from your terminal. No browser-based setup flow required. Your coding agent can also handle setup through Amplitude's MCP integration and instrumentation skills.</div>
   </div>
-
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
-      <span>Do startups get discounts?</span>
-      <span class="faq-chevron">▾</span>
-    </button>
-    <div class="faq-answer">Amplitude's Startup Program gives qualifying startups the full Enterprise plan free for 12 months, a value of more than $50,000. You qualify if your company has fewer than 20 employees and has raised less than $10M. The program includes every Amplitude product, premium support, and enterprise-grade features at no cost for the first year.</div>
+    <button class="faq-q" onclick="toggle(this)"><span>Do startups get discounts?</span><span class="faq-ch">▾</span></button>
+    <div class="faq-a">Amplitude's Startup Program gives qualifying startups the full Enterprise plan free for 12 months, a value of more than $50,000. You qualify if your company has fewer than 20 employees and has raised less than $10M. The program includes every Amplitude product, premium support, and enterprise-grade features at no cost for the first year.</div>
   </div>
-
   <div class="faq-item">
-    <button class="faq-question" onclick="toggleFaq(this)">
-      <span>How is Amplitude different from PostHog?</span>
-      <span class="faq-chevron">▾</span>
-    </button>
-    <div class="faq-answer">Amplitude and PostHog both offer analytics, session replay, feature flags, and experiments. Amplitude differentiates in three areas. First, Amplitude connects error data, session replays, and behavioral analytics to individual users, not just request counts, so you can measure user impact rather than event volume. Second, Amplitude's experimentation includes sequential testing, CUPED variance reduction, and auto-rollback on guardrail breaches as standard features. Third, Amplitude prices on one metric (events) with everything included, while PostHog prices each product separately with individual free tiers and usage curves.</div>
+    <button class="faq-q" onclick="toggle(this)"><span>How is Amplitude different from PostHog?</span><span class="faq-ch">▾</span></button>
+    <div class="faq-a">Amplitude and PostHog both offer analytics, session replay, feature flags, and experiments. Amplitude differentiates in three areas. First, Amplitude connects error data, session replays, and behavioral analytics to individual users, not just request counts, so you can measure user impact rather than event volume. Second, Amplitude's experimentation includes sequential testing, CUPED variance reduction, and auto-rollback on guardrail breaches as standard features. Third, Amplitude prices on one metric (events) with everything included, while PostHog prices each product separately with individual free tiers and usage curves.</div>
   </div>
 </section>
 
 <!-- Bottom CTA -->
-<section class="bottom-cta">
+<section class="bcta">
   <h2>Start building. See what your<br>users actually do.</h2>
-  <button class="btn-primary" style="width:auto; padding:14px 32px; border-radius:12px; font-size:15px">Start for free</button>
+  <button class="btn-cta">Start for free</button>
 </section>
 
 <!-- Footer -->
@@ -400,10 +329,14 @@
       <div class="footer-col-title">Partners & Support</div>
       <div>Status</div><div>Contact Us</div><div>Customer Help Center</div><div>Community</div><div>Partner Program</div><div>Startup Program</div>
     </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <div>About Us</div><div>Careers</div><div>Press & News</div><div>Investor Relations</div><div>Diversity, Equity & Inclusion</div>
+    </div>
   </div>
   <div class="footer-bottom">
-    <div class="nav-brand" style="color:#aaa; font-size:13px">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" stroke="#aaa" stroke-width="1.5"/><path d="M8 16L12 6L16 16" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="9.5" y1="13" x2="14.5" y2="13" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <div class="nav-brand" style="color:#aaa;font-size:13px">
+      <svg width="20" height="20" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#aaa" stroke-width="1.5"/><path d="M6 14C8 10 10 6 14 14C18 22 20 18 22 14" stroke="#aaa" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
       amplitude
     </div>
     <span>Terms of Service · Privacy Notice · Acceptable Use Policy · Legal</span>
@@ -412,18 +345,11 @@
 </footer>
 
 <script>
-function toggleFaq(btn) {
-  const answer = btn.nextElementSibling;
-  const chevron = btn.querySelector('.faq-chevron');
-  const isOpen = answer.classList.contains('open');
-  // Close all
-  document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
-  document.querySelectorAll('.faq-chevron').forEach(c => c.classList.remove('open'));
-  // Toggle current
-  if (!isOpen) {
-    answer.classList.add('open');
-    chevron.classList.add('open');
-  }
+function toggle(btn){
+  var a=btn.nextElementSibling,c=btn.querySelector('.faq-ch'),o=a.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(function(x){x.classList.remove('open')});
+  document.querySelectorAll('.faq-ch').forEach(function(x){x.classList.remove('open')});
+  if(!o){a.classList.add('open');c.classList.add('open')}
 }
 </script>
 

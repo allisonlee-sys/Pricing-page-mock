@@ -9,27 +9,24 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;background:#FAF9F6;color:#1a1a1a;-webkit-font-smoothing:antialiased;min-width:1024px}
-
-/* Nav — dark, matching PNG */
+/* Nav */
 .nav{display:flex;justify-content:space-between;align-items:center;padding:14px 32px;background:#1a1a1a;position:sticky;top:0;z-index:100}
 .nav-brand{display:flex;align-items:center;gap:8px;color:#fff;font-weight:600;font-size:16px;letter-spacing:-.02em}
 .nav-actions{display:flex;align-items:center;gap:12px}
 .nav-link{color:#aaa;font-size:14px;font-weight:500}
 .btn-ghost{background:none;border:1px solid #555;color:#fff;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit}
 .btn-white{background:#fff;border:none;color:#1a1a1a;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
-
-/* Hero — white bg, bold black type matching PNG */
-.hero{background:#fff;text-align:center;padding:56px 24px 48px}
-.hero h1{font-family:'IBM Plex Sans',sans-serif;font-size:60px;font-weight:700;line-height:1.08;letter-spacing:-.03em;color:#1a1a1a;margin-bottom:16px}
-.hero .sub{font-size:17px;line-height:1.55;color:#888;max-width:480px;margin:0 auto 0}
-
-/* Tool logos — pill style with brand icons matching PNG */
+/* Hero */
+.hero{background:#fff;text-align:center;padding:64px 24px 56px}
+.hero-inner{max-width:640px;margin:0 auto}
+.hero h1{font-family:'IBM Plex Sans',sans-serif;font-size:56px;font-weight:700;line-height:1.08;letter-spacing:-.03em;color:#1a1a1a;margin-bottom:20px}
+.hero .sub{font-size:17px;line-height:1.6;color:#666;max-width:100%;margin:0 auto}
+/* Tool logos */
 .tools-bar{display:flex;justify-content:center;align-items:center;gap:16px;padding:24px 24px 28px;background:#fff;border-bottom:1px solid #e5e2dd}
 .tools-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#aaa;margin-right:4px}
 .tool{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:#1a1a1a;padding:8px 18px;background:#fff;border:1px solid #e5e2dd;border-radius:24px}
 .tool svg{flex-shrink:0}
 .tools-mcp{font-size:14px;color:#aaa;font-weight:400}
-
 /* Plan Cards */
 .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:40px auto;padding:0 24px}
 .card{background:#fff;border-radius:16px;padding:32px 28px;border:1px solid #e5e2dd;display:flex;flex-direction:column}
@@ -38,26 +35,78 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;bac
 .pop-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 16px;border-radius:20px;white-space:nowrap}
 .tier{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#999;margin-bottom:8px}
 .card.dark .tier{color:#888}
-.price{font-size:36px;font-weight:700;letter-spacing:-.03em;margin-bottom:4px}
-.price .sm{font-size:14px;font-weight:400;color:#777}
-.desc{font-size:14px;color:#777;margin-bottom:24px;line-height:1.5}
+.price{font-size:36px;font-weight:700;letter-spacing:-.03em;margin-bottom:4px;min-height:80px;display:flex;flex-direction:column;justify-content:flex-start}
+.price .sm{font-size:13px;font-weight:400;color:#999;margin-top:5px;letter-spacing:0}
+.desc{font-size:14px;color:#777;margin-bottom:24px;line-height:1.5;min-height:64px}
 .card.dark .desc{color:#999}
-
 .btn-dark{width:100%;padding:12px;border-radius:10px;border:none;background:#1a1a1a;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:6px}
 .btn-outline{width:100%;padding:12px;border-radius:10px;border:1px solid #1a1a1a;background:#fff;color:#1a1a1a;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:6px}
 .btn-outline-inv{width:100%;padding:12px;border-radius:10px;border:1px solid #555;background:transparent;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:6px}
 .btn-note{font-size:12px;color:#aaa;text-align:center;margin-bottom:28px;display:block}
-
 .label{font-size:12px;font-weight:600;color:#999;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}
 .card.dark .label{color:#888}
 .feat{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px}
 .feat .ck{color:#1E61F0;flex-shrink:0;margin-top:1px;font-size:15px}
 .feat .tx{font-size:14px;line-height:1.5;color:#333}
 .card.dark .feat .tx{color:#ccc}
-
 .tags{display:flex;flex-wrap:wrap;gap:6px}
 .tag{display:inline-block;padding:4px 10px;border-radius:6px;background:#f0ede8;font-size:12px;font-weight:500;color:#555}
 .tag-dark{display:inline-block;padding:4px 10px;border-radius:6px;background:#333;font-size:12px;font-weight:500;color:#fff}
+/* Best for row */
+.best-for{font-size:13px;color:#777;line-height:1.5;margin-bottom:20px;padding:10px 12px;background:#f8f6f2;border-radius:8px;min-height:72px}
+.best-for strong{display:block;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#aaa;margin-bottom:4px}
+.card.dark .best-for{background:#222;color:#999}
+.card.dark .best-for strong{color:#666}
+
+/* Compare plans CTA — below the 3-col grid */
+.compare-cta{text-align:center;margin:-12px auto 48px;padding:0 24px}
+.btn-compare{display:inline-flex;align-items:center;gap:8px;padding:11px 28px;border-radius:10px;border:1px solid #1a1a1a;background:transparent;color:#1a1a1a;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s,color .15s}
+.btn-compare:hover{background:#1a1a1a;color:#fff}
+.btn-compare svg{transition:transform .2s}
+
+/* ── Compare Plans Table ── */
+#comparePlans{max-width:960px;margin:0 auto 72px;padding:0 24px;scroll-margin-top:72px}
+.cp-header{text-align:center;margin-bottom:40px}
+.cp-header h2{font-size:32px;font-weight:700;letter-spacing:-.03em;margin-bottom:8px}
+.cp-header p{font-size:15px;color:#666}
+
+.cp-table{width:100%;border-collapse:collapse}
+
+/* Sticky plan header row */
+.cp-thead{position:sticky;top:56px;z-index:10;background:#FAF9F6}
+.cp-thead td{padding:0}
+.cp-th-spacer{width:44%;border-bottom:2px solid #e5e2dd}
+.cp-th-plan{width:18.67%;padding:20px 8px 16px;text-align:center;border-bottom:2px solid #e5e2dd;vertical-align:bottom}
+.cp-th-plan .cp-plan-name{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#999;margin-bottom:6px}
+.cp-th-plan .cp-plan-price{font-size:20px;font-weight:700;letter-spacing:-.02em;color:#1a1a1a;margin-bottom:12px}
+.cp-th-plan .cp-plan-price span{font-size:12px;font-weight:400;color:#999;display:block;line-height:1.4;margin-top:2px}
+.cp-th-plan .cp-plan-btn{display:inline-block;width:auto;padding:7px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-align:center;white-space:nowrap}
+.cp-th-plan .cp-plan-btn.outline{border:1px solid #1a1a1a;background:#fff;color:#1a1a1a}
+.cp-th-plan .cp-plan-btn.filled{border:none;background:#1a1a1a;color:#fff}
+.cp-th-plan .cp-plan-btn.dark{border:1px solid #555;background:#1a1a1a;color:#fff}
+
+/* Category accordion rows */
+.cp-cat-row{cursor:pointer;background:#FAF9F6}
+.cp-cat-row:hover{background:#f0ede8}
+.cp-cat-cell{padding:14px 16px 14px 0;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#555;border-top:1px solid #e5e2dd;display:flex;align-items:center;gap:10px}
+.cp-cat-toggle{width:22px;height:22px;border-radius:50%;border:1px solid #ddd;background:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#888;flex-shrink:0;transition:transform .2s,background .15s}
+.cp-cat-toggle.open{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.cp-cat-td{border-top:1px solid #e5e2dd;padding:14px 16px;text-align:center;vertical-align:middle}
+
+/* Feature rows */
+.cp-feat-row{display:none}
+.cp-feat-row.visible{display:table-row}
+.cp-feat-row td{padding:12px 16px;border-bottom:1px solid #f0ede8;vertical-align:middle}
+.cp-feat-row td:first-child{padding-left:0;font-size:14px;color:#444;padding-left:48px}
+.cp-feat-row td:not(:first-child){text-align:center;font-size:13px;font-weight:500;color:#333}
+
+.cp-check{color:#1E61F0;font-size:16px;font-weight:700}
+.cp-dash{color:#ccc;font-size:18px}
+.cp-val{font-size:13px;font-weight:600;color:#1a1a1a}
+.cp-addon{font-size:11px;font-weight:600;color:#1E61F0;background:#EEF3FE;padding:3px 8px;border-radius:5px;white-space:nowrap}
+
+/* Sub-note inside a feature cell */
+.cp-sub{display:block;font-size:11px;font-weight:400;color:#999;margin-top:2px}
 
 /* Startup */
 .startup{max-width:960px;margin:0 auto 48px;padding:0 24px}
@@ -65,7 +114,6 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;bac
 .startup-lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#1E61F0;margin-bottom:8px}
 .startup-title{font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px}
 .startup-desc{font-size:14px;color:#666;line-height:1.5}
-
 /* AI Recommender */
 .rec{text-align:center;max-width:600px;margin:0 auto 64px;padding:0 24px}
 .rec h2{font-size:24px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
@@ -77,7 +125,14 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;bac
 .rec-row{display:flex;gap:8px}
 .rec-input{flex:1;padding:10px 14px;border-radius:10px;border:1px solid #ddd;font-size:14px;font-family:inherit;outline:none}
 .rec-btn{padding:10px 20px;border-radius:10px;border:none;background:#1a1a1a;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
-
+/* Recommender result card */
+.rec-result{margin-top:12px}
+.rec-result-card{background:#f8f6f2;border:1px solid #e5e2dd;border-radius:12px;padding:20px 22px;text-align:left;animation:fadeUp .18s ease}
+.rec-result-card.rec-gentle{color:#888;font-size:14px;text-align:center;padding:16px}
+.rec-result-plan{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#aaa;margin-bottom:6px}
+.rec-result-name{font-size:20px;font-weight:700;letter-spacing:-.02em;color:#1a1a1a;margin-bottom:10px}
+.rec-result-text{font-size:14px;line-height:1.6;color:#555;margin-bottom:16px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 /* Value Props */
 .vp{max-width:960px;margin:0 auto 64px;padding:0 24px}
 .vp-head{text-align:center;margin-bottom:40px}
@@ -88,7 +143,12 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;bac
 .vp-icon{width:40px;height:40px;border-radius:10px;background:#f0ede8;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:16px}
 .vp-card h3{font-size:16px;font-weight:700;margin-bottom:8px;letter-spacing:-.01em;line-height:1.3}
 .vp-card p{font-size:13px;line-height:1.6;color:#666}
-
+/* Pricing manifesto */
+.manifesto{max-width:960px;margin:0 auto 64px;padding:0 24px}
+.manifesto h2{font-size:28px;font-weight:700;letter-spacing:-.02em;color:#1a1a1a;margin-bottom:40px}
+.manifesto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.manifesto-col h3{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:10px;letter-spacing:-.01em}
+.manifesto-col p{font-size:14px;line-height:1.7;color:#555}
 /* FAQs */
 .faq{max-width:680px;margin:0 auto 64px;padding:0 24px}
 .faq h2{font-size:28px;font-weight:700;letter-spacing:-.02em;text-align:center;margin-bottom:32px}
@@ -99,12 +159,10 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;bac
 .faq-ch.open{transform:rotate(180deg)}
 .faq-a{margin-top:12px;font-size:14px;line-height:1.65;color:#444;max-width:640px;display:none}
 .faq-a.open{display:block}
-
 /* Bottom CTA */
 .bcta{text-align:center;padding:48px 24px 64px;max-width:600px;margin:0 auto}
 .bcta h2{font-size:clamp(24px,4vw,36px);font-weight:700;letter-spacing:-.03em;margin-bottom:20px;line-height:1.15}
 .btn-cta{padding:14px 32px;border-radius:12px;border:none;background:#1a1a1a;color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit}
-
 /* Footer */
 .footer{border-top:1px solid #e5e2dd;padding:48px 32px 32px;max-width:960px;margin:0 auto}
 .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:32px;font-size:13px;color:#888;margin-bottom:32px}
@@ -114,7 +172,6 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;bac
 </style>
 </head>
 <body>
-
 <!-- Nav -->
 <nav class="nav">
   <div class="nav-brand">
@@ -131,13 +188,15 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;bac
   </div>
 </nav>
 
-<!-- Hero — from PNG -->
+<!-- Hero -->
 <section class="hero">
-  <h1>Build something people<br>actually use.</h1>
-  <p class="sub">See what users do, fix what matters, and scale when it works. Start free. No credit card.</p>
+  <div class="hero-inner">
+    <h1>Simple pricing.<br>Everything included.</h1>
+    <p class="sub">Start free with 2M events. Every plan includes analytics, session replay, feature flags, experiments, AI, MCP, and unlimited seats. When your usage grows, you only pay based on events.</p>
+  </div>
 </section>
 
-<!-- Tool logos — from PNG -->
+<!-- Tool logos -->
 <div class="tools-bar">
   <span class="tools-label">Works inside your tools</span>
   <span class="tool"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="2" fill="#D97757"/><path d="M9 2V4.5M9 13.5V16M2 9H4.5M13.5 9H16M4.05 4.05L5.82 5.82M12.18 12.18L13.95 13.95M4.05 13.95L5.82 12.18M12.18 5.82L13.95 4.05" stroke="#D97757" stroke-width="1.6" stroke-linecap="round"/></svg>Claude</span>
@@ -147,67 +206,79 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;bac
   <span class="tools-mcp">· any MCP tool</span>
 </div>
 
-<!-- Plan Cards — from PDF -->
+<!-- Plan Cards -->
 <section class="plans">
-
-  <!-- Starter -->
+  <!-- Free -->
   <div class="card">
-    <div class="tier">Starter</div>
-    <div class="price">Free</div>
-    <p class="desc">2M events included. No credit card.</p>
+    <div class="tier">Free</div>
+    <div class="price">$0</div>
+    <p class="desc">Get set up and find what's broken, fast. No credit card required.</p>
+    <div class="best-for"><strong>Best for</strong>Trying Amplitude, early products, and teams getting their first usage data in.</div>
     <button class="btn-outline">Start for free</button>
     <span class="btn-note">No credit card required</span>
     <div class="label">Use it to:</div>
-    <div class="feat"><span class="ck">✓</span><span class="tx">Find what's broken in your product</span></div>
-    <div class="feat"><span class="ck">✓</span><span class="tx">Replay real user sessions to debug faster</span></div>
-    <div class="feat"><span class="ck">✓</span><span class="tx">Test changes with feature flags and experiments</span></div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Find where users drop off</span></div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Replay sessions to debug issues</span></div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Test changes with flags and experiments</span></div>
     <div style="margin-top:20px">
       <div class="label">Includes:</div>
       <div class="tags">
-        <span class="tag">Analytics</span><span class="tag">Session Replay</span><span class="tag">Feature Flags</span><span class="tag">Experiments</span><span class="tag">Guides & Surveys</span><span class="tag">AI Agents</span><span class="tag">MCP</span><span class="tag">AI Visibility</span><span class="tag">Activation</span><span class="tag">Unlimited seats</span>
+        <span class="tag">2M events/month</span><span class="tag">Analytics</span><span class="tag">Session Replay</span><span class="tag">Feature Flags &amp; Experiments</span><span class="tag">AI + MCP access</span><span class="tag">Unlimited seats</span>
       </div>
     </div>
   </div>
-
   <!-- Plus -->
   <div class="card pop">
     <div class="pop-badge">Most popular</div>
     <div class="tier">Plus</div>
-    <div class="price">Free <span class="sm">up to 2M events</span></div>
-    <p class="desc">Then pay as you grow. Credit card required.</p>
+    <div class="price" style="font-size:26px">Pay as you grow<span class="sm">Free up to 2M events</span></div>
+    <p class="desc">Scale your product without losing visibility. Free up to 2M events, then usage-based pricing as you scale.</p>
+    <div class="best-for"><strong>Best for</strong>Growing products, production usage, and teams ready to scale past the free tier.</div>
     <button class="btn-dark">Get started</button>
     <span class="btn-note">We'll notify you before charges</span>
     <div class="label">Use it to:</div>
-    <div class="feat"><span class="ck">✓</span><span class="tx">Find what actually drives retention and conversion</span></div>
-    <div class="feat"><span class="ck">✓</span><span class="tx">Run deeper experiments with advanced statistical methods</span></div>
-    <div class="feat"><span class="ck">✓</span><span class="tx">Scale past 2M events without losing data or momentum</span></div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">See what drives retention and conversion</span></div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Run deeper experiments with reliable results</span></div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Scale past 2M events without losing data</span></div>
     <div style="margin-top:20px">
-      <div class="label">Everything in Starter, plus:</div>
-      <div class="feat"><span class="ck">✓</span><span class="tx">Higher event volume and data retention</span></div>
-      <div class="feat"><span class="ck">✓</span><span class="tx">Advanced analysis and experimentation</span></div>
-      <div class="feat"><span class="ck">✓</span><span class="tx">Session Replay and Experimentation add-ons</span></div>
+      <div class="label">Unlocks as you grow:</div>
+      <div class="feat"><span class="ck">✓</span><span class="tx">Higher event volume</span></div>
+      <div class="feat"><span class="ck">✓</span><span class="tx">Longer data retention</span></div>
+      <div class="feat"><span class="ck">✓</span><span class="tx">Advanced analysis</span></div>
+      <div class="feat"><span class="ck">✓</span><span class="tx">Advanced experimentation</span></div>
+      <div class="feat"><span class="ck">✓</span><span class="tx">Add-ons for deeper replay and experimentation needs</span></div>
     </div>
   </div>
-
   <!-- Enterprise -->
   <div class="card dark">
     <div class="tier">Enterprise</div>
     <div class="price">Custom</div>
-    <p class="desc">Custom event volume. Dedicated support.</p>
+    <p class="desc">Run at scale with full control and support. Custom event volume, governance, and dedicated support.</p>
+    <div class="best-for"><strong>Best for</strong>Large teams, global products, and organizations with strict security, access, or compliance needs.</div>
     <button class="btn-outline-inv">Talk to our team</button>
-    <span class="btn-note">&nbsp;</span>
+    <span class="btn-note">Custom plan and volume</span>
     <div class="label">Use it to:</div>
     <div class="feat"><span class="ck">✓</span><span class="tx">Run experiments across your entire product</span></div>
-    <div class="feat"><span class="ck">✓</span><span class="tx">Control data access across teams and regions</span></div>
-    <div class="feat"><span class="ck">✓</span><span class="tx">Manage SSO, permissions, and audit trails</span></div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Control access across teams and regions</span></div>
+    <div class="feat"><span class="ck">✓</span><span class="tx">Meet security, compliance, and governance needs</span></div>
     <div style="margin-top:20px">
       <div class="label">Includes:</div>
       <div class="tags">
-        <span class="tag-dark">Custom volume</span><span class="tag-dark">50K session replays/mo</span><span class="tag-dark">Unlimited cohorts</span><span class="tag-dark">Unlimited experiments</span><span class="tag-dark">5,000 AI prompts</span><span class="tag-dark">Advanced access controls</span>
+        <span class="tag-dark">Custom event volume</span><span class="tag-dark">Advanced access controls</span><span class="tag-dark">SSO, permissions &amp; audit logs</span><span class="tag-dark">Enterprise support</span><span class="tag-dark">High-scale experimentation &amp; replay</span><span class="tag-dark">Custom governance &amp; data controls</span>
       </div>
     </div>
   </div>
 </section>
+
+<!-- ── Compare Plans hollow CTA ── -->
+<div class="compare-cta">
+  <button class="btn-compare" onclick="scrollToCompare(this)">
+    <span>Compare plans</span>
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M7 2.5V11.5M3 8L7 11.5L11 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>
 
 <!-- Startup Banner -->
 <section class="startup">
@@ -221,6 +292,149 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;bac
   </div>
 </section>
 
+<!-- ──────────────────────────────────────────────
+     COMPARE PLANS ACCORDION TABLE
+     ────────────────────────────────────────────── -->
+<section id="comparePlans">
+  <div class="cp-header">
+    <h2>Compare plans</h2>
+    <p>Everything included in every plan. One metric to track.</p>
+  </div>
+
+  <table class="cp-table">
+
+    <!-- Sticky header: plan names + CTAs -->
+    <thead class="cp-thead">
+      <tr>
+        <td class="cp-th-spacer"></td>
+        <td class="cp-th-plan">
+          <div class="cp-plan-name">Starter</div>
+          <div class="cp-plan-price">Free<span>2M events/mo · No CC</span></div>
+          <button class="cp-plan-btn outline">Start for free</button>
+        </td>
+        <td class="cp-th-plan">
+          <div class="cp-plan-name">Plus</div>
+          <div class="cp-plan-price">Pay-as-you-go<span>Free up to 2M events</span></div>
+          <button class="cp-plan-btn filled">Get started</button>
+        </td>
+        <td class="cp-th-plan">
+          <div class="cp-plan-name">Enterprise</div>
+          <div class="cp-plan-price">Custom<span>Dedicated support</span></div>
+          <button class="cp-plan-btn dark">Talk to sales</button>
+        </td>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <!-- ── ANALYTICS ── -->
+      <tr class="cp-cat-row" onclick="toggleCat('analytics')">
+        <td colspan="4" style="padding:0;border-top:2px solid #e5e2dd">
+          <div class="cp-cat-cell" style="padding:14px 0">
+            <span class="cp-cat-toggle" id="toggle-analytics">+</span>
+            Analytics
+          </div>
+        </td>
+      </tr>
+      <tr class="cp-feat-row" data-cat="analytics"><td>Events per month</td><td><span class="cp-val">2M</span></td><td><span class="cp-val">Pay-as-you-go</span></td><td><span class="cp-val">Custom</span></td></tr>
+      <tr class="cp-feat-row" data-cat="analytics"><td>Data retention</td><td><span class="cp-val">1 year</span></td><td><span class="cp-val">2 years</span></td><td><span class="cp-val">Custom</span></td></tr>
+      <tr class="cp-feat-row" data-cat="analytics"><td>Custom events</td><td><span class="cp-val">2,000</span></td><td><span class="cp-val">Unlimited</span></td><td><span class="cp-val">Unlimited</span></td></tr>
+      <tr class="cp-feat-row" data-cat="analytics"><td>Funnel &amp; retention analysis</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="analytics"><td>Behavioral cohorts</td><td><span class="cp-val">10</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-val">Unlimited</span></td></tr>
+      <tr class="cp-feat-row" data-cat="analytics"><td>User-level data</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="analytics"><td>Pathfinder / user paths</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="analytics"><td>Revenue analytics</td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="analytics"><td>Custom dashboards</td><td><span class="cp-val">3</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="analytics"><td>Predictive analytics</td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="analytics"><td>Real-time data streaming</td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="analytics"><td>Data warehouse sync</td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td></tr>
+
+      <!-- ── SESSION REPLAY ── -->
+      <tr class="cp-cat-row" onclick="toggleCat('replay')">
+        <td colspan="4" style="padding:0;border-top:2px solid #e5e2dd">
+          <div class="cp-cat-cell" style="padding:14px 0">
+            <span class="cp-cat-toggle" id="toggle-replay">+</span>
+            Session Replay
+          </div>
+        </td>
+      </tr>
+      <tr class="cp-feat-row" data-cat="replay"><td>Session replays per month</td><td><span class="cp-val">1,000</span></td><td><span class="cp-addon">Add-on</span></td><td><span class="cp-val">50,000</span></td></tr>
+      <tr class="cp-feat-row" data-cat="replay"><td>Rage-click &amp; dead-click detection</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="replay"><td>Error-correlated replays</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="replay"><td>Replay search &amp; filter</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="replay"><td>Heatmaps</td><td><span class="cp-dash">—</span></td><td><span class="cp-addon">Add-on</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="replay"><td>Privacy masking controls</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+
+      <!-- ── EXPERIMENTS ── -->
+      <tr class="cp-cat-row" onclick="toggleCat('experiments')">
+        <td colspan="4" style="padding:0;border-top:2px solid #e5e2dd">
+          <div class="cp-cat-cell" style="padding:14px 0">
+            <span class="cp-cat-toggle" id="toggle-experiments">+</span>
+            Experiments
+          </div>
+        </td>
+      </tr>
+      <tr class="cp-feat-row" data-cat="experiments"><td>Concurrent experiments</td><td><span class="cp-val">3</span></td><td><span class="cp-addon">Add-on</span></td><td><span class="cp-val">Unlimited</span></td></tr>
+      <tr class="cp-feat-row" data-cat="experiments"><td>Sequential testing</td><td><span class="cp-dash">—</span></td><td><span class="cp-addon">Add-on</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="experiments"><td>CUPED variance reduction</td><td><span class="cp-dash">—</span></td><td><span class="cp-addon">Add-on</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="experiments"><td>Guardrail metrics</td><td><span class="cp-dash">—</span></td><td><span class="cp-addon">Add-on</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="experiments"><td>Auto-rollback on metric breach</td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="experiments"><td>Multi-armed bandit</td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td></tr>
+
+      <!-- ── FEATURE FLAGS ── -->
+      <tr class="cp-cat-row" onclick="toggleCat('flags')">
+        <td colspan="4" style="padding:0;border-top:2px solid #e5e2dd">
+          <div class="cp-cat-cell" style="padding:14px 0">
+            <span class="cp-cat-toggle" id="toggle-flags">+</span>
+            Feature Flags
+          </div>
+        </td>
+      </tr>
+      <tr class="cp-feat-row" data-cat="flags"><td>Unlimited feature flags</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="flags"><td>Targeting rules &amp; segments</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="flags"><td>Remote config</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="flags"><td>Holdout groups</td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="flags"><td>Flag dependencies</td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+
+      <!-- ── GUIDES & SURVEYS ── -->
+      <tr class="cp-cat-row" onclick="toggleCat('guides')">
+        <td colspan="4" style="padding:0;border-top:2px solid #e5e2dd">
+          <div class="cp-cat-cell" style="padding:14px 0">
+            <span class="cp-cat-toggle" id="toggle-guides">+</span>
+            Guides &amp; Surveys
+          </div>
+        </td>
+      </tr>
+      <tr class="cp-feat-row" data-cat="guides"><td>In-app product tours</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="guides"><td>Tooltips &amp; checklists</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="guides"><td>In-app surveys</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="guides"><td>NPS surveys</td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="guides"><td>Audience targeting</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+
+      <!-- ── PLATFORM & ADMIN ── -->
+      <tr class="cp-cat-row" onclick="toggleCat('platform')">
+        <td colspan="4" style="padding:0;border-top:2px solid #e5e2dd">
+          <div class="cp-cat-cell" style="padding:14px 0">
+            <span class="cp-cat-toggle" id="toggle-platform">+</span>
+            Platform &amp; Admin
+          </div>
+        </td>
+      </tr>
+      <tr class="cp-feat-row" data-cat="platform"><td>Seats</td><td><span class="cp-val">Unlimited</span></td><td><span class="cp-val">Unlimited</span></td><td><span class="cp-val">Unlimited</span></td></tr>
+      <tr class="cp-feat-row" data-cat="platform"><td>Role-based access control</td><td><span class="cp-val">Basic</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="platform"><td>SSO / SAML</td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="platform"><td>Audit log</td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="platform"><td>Data access controls</td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="platform"><td>MCP &amp; AI agent access</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="platform"><td>AI prompts / month</td><td><span class="cp-val">500</span></td><td><span class="cp-val">2,000</span></td><td><span class="cp-val">5,000</span></td></tr>
+      <tr class="cp-feat-row" data-cat="platform"><td>Priority support</td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="platform"><td>Dedicated CSM</td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td></tr>
+      <tr class="cp-feat-row" data-cat="platform"><td>Uptime SLA</td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td></tr>
+
+    </tbody>
+  </table>
+</section>
+
 <!-- AI Recommender -->
 <section class="rec">
   <h2>Not sure which plan fits?</h2>
@@ -231,16 +445,17 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;bac
       <p>What are you building, and roughly how many events do you expect in the first few months?</p>
     </div>
     <div class="rec-row">
-      <input type="text" class="rec-input" placeholder="Tell us what you're building...">
-      <button class="rec-btn">Get recommendation</button>
+      <input type="text" id="rec-input" class="rec-input" placeholder="Tell us what you're building..." onkeydown="if(event.key==='Enter')recommend()">
+      <button class="rec-btn" onclick="recommend()">Get recommendation</button>
     </div>
+    <div id="rec-result" class="rec-result"></div>
   </div>
 </section>
 
 <!-- Value Props -->
 <section class="vp">
   <div class="vp-head">
-    <h2>Built for product engineers.</h2>
+    <h2>Built for teams who ship.</h2>
     <p>From data to insight, experimentation, and action in one place.</p>
   </div>
   <div class="vp-grid">
@@ -263,6 +478,25 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;bac
       <div class="vp-icon">△</div>
       <h3>One platform. One metric.</h3>
       <p>Analytics, session replay, flags, experiments, and error monitoring. Pay for events. Everything else scales with it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing manifesto -->
+<section class="manifesto">
+  <h2>Our commitment to simple, transparent pricing.</h2>
+  <div class="manifesto-grid">
+    <div class="manifesto-col">
+      <h3>Every product. Every plan.</h3>
+      <p>Every plan gets everything — analytics, session replay, flags, experiments, AI, and MCP. All of it. You pay more when you use more, not when you want more features.</p>
+    </div>
+    <div class="manifesto-col">
+      <h3>One metric. No surprises.</h3>
+      <p>One number: events. No seat fees. No add-on bundles. No penalty rates. If you're close to your limit, we'll tell you before anything changes.</p>
+    </div>
+    <div class="manifesto-col">
+      <h3>Start free. Scale when you're ready.</h3>
+      <p>No credit card. No sales call. Sign up and go. The free plan is real — 2M events, every product, unlimited seats. When you're ready to grow, upgrading takes one click.</p>
     </div>
   </div>
 </section>
@@ -326,12 +560,12 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;bac
       <div>Resource Library</div><div>Blog</div><div>Developer Docs</div><div>Agent Prompt Library</div><div>Product Updates</div><div>Amplitude Academy</div><div>Events</div><div>Glossary</div>
     </div>
     <div>
-      <div class="footer-col-title">Partners & Support</div>
+      <div class="footer-col-title">Partners &amp; Support</div>
       <div>Status</div><div>Contact Us</div><div>Customer Help Center</div><div>Community</div><div>Partner Program</div><div>Startup Program</div>
     </div>
     <div>
       <div class="footer-col-title">Company</div>
-      <div>About Us</div><div>Careers</div><div>Press & News</div><div>Investor Relations</div><div>Diversity, Equity & Inclusion</div>
+      <div>About Us</div><div>Careers</div><div>Press &amp; News</div><div>Investor Relations</div><div>Diversity, Equity &amp; Inclusion</div>
     </div>
   </div>
   <div class="footer-bottom">
@@ -345,13 +579,111 @@ body{font-family:'IBM Plex Sans','Helvetica Neue',Helvetica,Arial,sans-serif;bac
 </footer>
 
 <script>
+/* FAQ accordion */
 function toggle(btn){
   var a=btn.nextElementSibling,c=btn.querySelector('.faq-ch'),o=a.classList.contains('open');
   document.querySelectorAll('.faq-a').forEach(function(x){x.classList.remove('open')});
   document.querySelectorAll('.faq-ch').forEach(function(x){x.classList.remove('open')});
   if(!o){a.classList.add('open');c.classList.add('open')}
 }
-</script>
 
+/* AI Plan Recommender */
+function recommend() {
+  var input = document.getElementById('rec-input').value.trim().toLowerCase();
+  var result = document.getElementById('rec-result');
+
+  if (!input) {
+    result.innerHTML = '<div class="rec-result-card rec-gentle">Tell us a little about what you\'re building and we\'ll recommend a plan.</div>';
+    return;
+  }
+
+  var enterpriseKws = [
+    'enterprise','security','compliance','sso','permissions','audit','governance',
+    'procurement','legal','global','multiple teams','regions','healthcare','fintech',
+    'hipaa','data residency','custom volume','dedicated support'
+  ];
+  var plusKws = [
+    'growing','production','launch','scale','retention','conversion','experiments',
+    'feature flags','more events','paid product','startup','saas','usage growing',
+    'past 2m','need more volume'
+  ];
+  var starterKws = [
+    'trying','prototype','mvp','side project','early','just starting','small team',
+    'no credit card','free','testing','under 2m','learning'
+  ];
+
+  var plan = null;
+
+  for (var i = 0; i < enterpriseKws.length; i++) {
+    if (input.indexOf(enterpriseKws[i]) !== -1) { plan = 'enterprise'; break; }
+  }
+  if (!plan) {
+    for (var i = 0; i < plusKws.length; i++) {
+      if (input.indexOf(plusKws[i]) !== -1) { plan = 'plus'; break; }
+    }
+  }
+  if (!plan) {
+    for (var i = 0; i < starterKws.length; i++) {
+      if (input.indexOf(starterKws[i]) !== -1) { plan = 'starter'; break; }
+    }
+  }
+  if (!plan) plan = 'fallback';
+
+  var plans = {
+    starter: {
+      name: 'Starter',
+      text: 'Start free with 2M events, unlimited seats, and the core tools to understand what users do. Best if you\'re trying Amplitude, building an MVP, or getting your first usage data in.',
+      cta: 'Start for free',
+      btnClass: 'btn-outline'
+    },
+    plus: {
+      name: 'Plus',
+      text: 'Start free, then pay as you grow. Best if your product is live, usage is growing, and you want more volume, deeper analysis, and reliable experimentation without losing visibility.',
+      cta: 'Get started',
+      btnClass: 'btn-dark'
+    },
+    enterprise: {
+      name: 'Enterprise',
+      text: 'Talk to our team for custom volume, advanced controls, governance, and dedicated support. Best for large teams or organizations with strict security, compliance, and access requirements.',
+      cta: 'Talk to our team',
+      btnClass: 'btn-outline'
+    },
+    fallback: {
+      name: 'Starter',
+      text: 'Start free with 2M events and no credit card. You can always move to Plus when your usage grows.',
+      cta: 'Start for free',
+      btnClass: 'btn-outline'
+    }
+  };
+
+  var p = plans[plan];
+  result.innerHTML =
+    '<div class="rec-result-card">' +
+      '<div class="rec-result-plan">Recommended plan</div>' +
+      '<div class="rec-result-name">' + p.name + '</div>' +
+      '<p class="rec-result-text">' + p.text + '</p>' +
+      '<button class="' + p.btnClass + '" style="width:auto;padding:10px 26px;font-size:14px">' + p.cta + '</button>' +
+    '</div>';
+}
+
+/* Compare plans category accordion */
+function toggleCat(cat){
+  var rows=document.querySelectorAll('[data-cat="'+cat+'"]');
+  var toggle=document.getElementById('toggle-'+cat);
+  var isOpen=toggle.classList.contains('open');
+  rows.forEach(function(r){
+    if(isOpen){r.classList.remove('visible')}
+    else{r.classList.add('visible')}
+  });
+  if(isOpen){toggle.classList.remove('open');toggle.textContent='+'}
+  else{toggle.classList.add('open');toggle.textContent='−'}
+}
+
+/* Scroll to compare table and open all cats */
+function scrollToCompare(btn){
+  var el=document.getElementById('comparePlans');
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
 </body>
 </html>

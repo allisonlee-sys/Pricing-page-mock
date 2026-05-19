@@ -7,7 +7,6 @@
 <meta name="description" content="Amplitude pricing starts free with 2M events per month, no credit card required. Product analytics, session replay, feature flags, experiments, and error monitoring in one platform. Built for product engineers.">
 <link rel="canonical" href="https://amplitude.com/pricing">
 
-<!-- AEO: Structured data for LLM crawlers and AI search -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -18,7 +17,7 @@
   "description": "Amplitude is a digital analytics platform. It includes product analytics, session replay, feature flags, A/B experiments, error monitoring, guides, surveys, and AI agents. All products are included in every plan. Pricing is event-based.",
   "offers": [
     { "@type": "Offer", "name": "Starter", "price": "0", "priceCurrency": "USD", "description": "Free forever. 2 million events per month. No credit card required. Includes analytics, session replay, feature flags, experiments, guides, surveys, and AI agents. Unlimited seats. Hard event cap — never charged." },
-    { "@type": "Offer", "name": "Plus", "price": "0", "priceCurrency": "USD", "description": "Free up to 2 million events per month. Pay-as-you-go above that. Requires a credit card. All Amplitude products included." },
+    { "@type": "Offer", "name": "Plus", "price": "49", "priceCurrency": "USD", "description": "Starting at $49 per month. Includes all Amplitude products. Scales with event volume." },
     { "@type": "Offer", "name": "Growth", "priceCurrency": "USD", "description": "For scaling product teams. Custom event volume, 3-year data retention, unlimited concurrent experiments, sequential testing, CUPED variance reduction, 10,000 session replays per month, heatmaps, error monitoring, and priority support. Contact sales." },
     { "@type": "Offer", "name": "Enterprise", "priceCurrency": "USD", "description": "For large organizations. Custom event volume, SSO/SAML, audit logs, data access controls, dedicated CSM, custom uptime SLA, and advanced governance controls. Contact sales." }
   ]
@@ -29,7 +28,7 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Is there a free plan for Amplitude?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Amplitude's Starter plan is free forever with 2 million events per month and no credit card required. Every product is included: analytics, session replay, feature flags, experiments, guides, surveys, and AI agents. Usage is hard-capped at 2M events — you will never be charged on Starter. There is also a Free Plus plan that includes the same 2 million events per month but requires a credit card, with pay-as-you-go pricing above the free tier." } },
+    { "@type": "Question", "name": "Is there a free plan for Amplitude?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Amplitude's Starter plan is free forever with 2 million events per month and no credit card required. Every product is included: analytics, session replay, feature flags, experiments, guides, surveys, and AI agents. Usage is hard-capped at 2M events — you will never be charged on Starter." } },
     { "@type": "Question", "name": "How does Amplitude pricing work?", "acceptedAnswer": { "@type": "Answer", "text": "Amplitude charges based on events. An event is any user action you choose to track — a page view, button click, or purchase. All Amplitude products are included in every plan. You pay more when your event volume grows, not when you want more features." } },
     { "@type": "Question", "name": "What is the difference between Growth and Enterprise?", "acceptedAnswer": { "@type": "Answer", "text": "Growth is for scaling product teams. It includes custom event volume, 3-year data retention, unlimited concurrent experiments, sequential testing, CUPED variance reduction, auto-rollback, 10,000 session replays per month, heatmaps, error monitoring, and priority support. Enterprise adds SSO/SAML, audit logs, data access controls, a dedicated CSM, a custom uptime SLA, and advanced governance. Enterprise is for organizations with strict compliance, security, or multi-team access requirements." } },
     { "@type": "Question", "name": "How is Amplitude different from PostHog?", "acceptedAnswer": { "@type": "Answer", "text": "Both platforms offer analytics, session replay, feature flags, and experiments. Amplitude connects behavioral data, sessions, and error data to individual users — not just event counts — so you measure who was affected, not just what happened. Amplitude's experimentation includes sequential testing, CUPED variance reduction, guardrail metrics, and auto-rollback as standard at Growth tier. PostHog supports approximately 4 metrics per test with no sequential testing and no CUPED. Amplitude charges based on event volume, with all products included in every plan. PostHog prices each product separately, which compounds at scale." } },
@@ -38,476 +37,182 @@
 }
 </script>
 
-<!-- Poppins — approved Google Fonts fallback for Gellix -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-<!-- Material Symbols — brand icon library (Rounded, Weight 300) -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,0,0" rel="stylesheet">
 
 <style>
-/* ── Reset & tokens ── */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  /* Brand primaries */
-  --blue:#0052F2;
-  --blue-dark:#001A4F;
-  --blue-link-dark:#4083FF;
-  --black:#000000;
-  --white:#FFFFFF;
-
-  /* Brand grays */
-  --gray-10:#F2F4F8;
-  --gray-20:#D5D9E0;
-  --gray-30:#B9BFC7;
-  --gray-50:#868D95;
-  --gray-60:#697077;
-  --gray-70:#505658;
-  --gray-80:#373D42;
-  --gray-90:#262A2E;
-  --gray-100:#13171A;
-
-  /* Accents (sparingly) */
-  --lilac:#6980FF;
-  --violet:#A373FF;
-
-  /* Page scaffold */
-  --bg:var(--gray-10);
-  --surface:var(--white);
-  --border:var(--gray-20);
-  --text:var(--black);
-  --text-2:var(--gray-70);
-  --text-3:var(--gray-60);
-  --text-4:var(--gray-50);
+  --blue:#0052F2;--blue-dark:#001A4F;--blue-link-dark:#4083FF;
+  --black:#000000;--white:#FFFFFF;
+  --gray-10:#F2F4F8;--gray-20:#D5D9E0;--gray-30:#B9BFC7;
+  --gray-50:#868D95;--gray-60:#697077;--gray-70:#505658;
+  --gray-80:#373D42;--gray-90:#262A2E;--gray-100:#13171A;
+  --bg:var(--gray-10);--surface:var(--white);--border:var(--gray-20);
+  --text:var(--black);--text-2:var(--gray-70);--text-3:var(--gray-60);--text-4:var(--gray-50);
 }
-
 html{scroll-behavior:smooth}
 body{
   font-family:'Poppins','Helvetica Neue',Helvetica,Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  -webkit-font-smoothing:antialiased;
-  min-width:1024px;
-  font-size:15px;
-  line-height:1.5;
+  background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;
+  min-width:1024px;font-size:15px;line-height:1.5;
 }
 
-/* ── NAV ── */
-.nav{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 32px;
-  height:52px;
-  background:var(--black);
-  position:sticky;
-  top:0;
-  z-index:100;
-}
-.nav-brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:var(--white);
-  font-weight:600;
-  font-size:15px;
-  letter-spacing:-.01em;
-  text-decoration:none;
-}
-/* TODO: Replace with official Amplitude logo from brand.amplitude.com -->  */
-.logo-placeholder{
-  width:28px;height:28px;border-radius:50%;
-  border:1.5px solid rgba(255,255,255,.4);
-  display:flex;align-items:center;justify-content:center;
-  font-size:10px;font-weight:700;color:rgba(255,255,255,.5);
-  letter-spacing:0;
-}
+/* NAV */
+.nav{display:flex;justify-content:space-between;align-items:center;padding:0 32px;height:52px;background:var(--black);position:sticky;top:0;z-index:100}
+.nav-brand{display:flex;align-items:center;gap:10px;color:var(--white);font-weight:600;font-size:15px;letter-spacing:-.01em;text-decoration:none}
+.logo-placeholder{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:0}
 .nav-links{display:flex;align-items:center;gap:24px}
 .nav-link{color:var(--gray-50);font-size:13px;font-weight:500;cursor:pointer;transition:color .15s}
 .nav-link:hover{color:var(--white)}
 .nav-link.active{color:var(--white)}
 .nav-actions{display:flex;align-items:center;gap:8px}
-.btn-nav-ghost{
-  background:none;border:1px solid var(--gray-80);color:var(--gray-30);
-  padding:6px 16px;border-radius:8px;font-size:13px;font-weight:500;
-  cursor:pointer;font-family:inherit;transition:border-color .15s,color .15s;
-}
+.btn-nav-ghost{background:none;border:1px solid var(--gray-80);color:var(--gray-30);padding:6px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:border-color .15s,color .15s}
 .btn-nav-ghost:hover{border-color:var(--gray-50);color:var(--white)}
-.btn-nav-primary{
-  background:var(--blue);border:none;color:var(--white);
-  padding:7px 18px;border-radius:8px;font-size:13px;font-weight:600;
-  cursor:pointer;font-family:inherit;transition:opacity .15s;
-}
+.btn-nav-primary{background:var(--blue);border:none;color:var(--white);padding:7px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity .15s}
 .btn-nav-primary:hover{opacity:.88}
 
-/* ── HERO — compact, above the fold ── */
-.hero{
-  background:var(--black);
-  padding:28px 24px 26px;
-  text-align:center;
-  border-bottom:1px solid var(--gray-90);
-}
+/* HERO */
+.hero{background:var(--black);padding:28px 24px 26px;text-align:center;border-bottom:1px solid var(--gray-90)}
 .hero-inner{max-width:640px;margin:0 auto}
-.hero h1{
-  font-size:38px;font-weight:700;line-height:1.1;
-  letter-spacing:-.03em;color:var(--white);
-  margin-bottom:10px;
-}
+.hero h1{font-size:38px;font-weight:700;line-height:1.1;letter-spacing:-.03em;color:var(--white);margin-bottom:10px}
 .hero h1 em{font-style:normal;color:var(--blue-link-dark)}
-.hero-sub{
-  font-size:15px;line-height:1.55;color:var(--gray-50);
-  margin-bottom:18px;
-}
-.hero-actions{display:flex;justify-content:center;align-items:center;gap:10px}
-.btn-hero-primary{
-  padding:10px 24px;border-radius:9px;border:none;
-  background:var(--blue);color:var(--white);
-  font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;
-  transition:opacity .15s;
-}
-.btn-hero-primary:hover{opacity:.88}
-.btn-hero-ghost{
-  padding:9px 24px;border-radius:9px;border:1px solid var(--gray-80);
-  background:none;color:var(--gray-40);
-  font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;
-  transition:border-color .15s,color .15s;
-}
-.btn-hero-ghost:hover{border-color:var(--gray-60);color:var(--white)}
-.hero-note{
-  font-size:11px;color:var(--gray-70);margin-top:10px;
-  font-family:monospace;letter-spacing:.01em;
-}
+.hero-sub{font-size:15px;line-height:1.55;color:var(--gray-50);margin-bottom:18px}
+.hero-note{font-size:11px;color:var(--gray-70);margin-top:10px;font-family:monospace;letter-spacing:.01em}
 
-/* ── TOOLS BAR ── */
-.tools-bar{
-  background:var(--white);
-  border-bottom:1px solid var(--border);
-  padding:0 24px;
-}
-.tools-inner{
-  max-width:960px;margin:0 auto;
-  display:flex;align-items:center;gap:0;
-  padding:14px 0;
-}
-.tools-label{
-  font-size:10px;font-weight:600;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--text-4);
-  margin-right:14px;white-space:nowrap;
-}
+/* TOOLS BAR */
+.tools-bar{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px}
+.tools-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;padding:14px 0}
+.tools-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-4);margin-right:14px;white-space:nowrap}
 .tools-chips{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.tool{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:12px;font-weight:500;color:var(--text);
-  padding:5px 12px;background:var(--bg);
-  border:1px solid var(--border);border-radius:20px;
-  white-space:nowrap;
-}
+.tool{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--text);padding:5px 12px;background:var(--bg);border:1px solid var(--border);border-radius:20px;white-space:nowrap}
 .tools-sep{width:1px;height:18px;background:var(--border);margin:0 12px}
-.cli-label{
-  font-size:10px;font-weight:600;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--text-4);margin-right:8px;
-}
-.cli-snippet{
-  font-family:monospace;font-size:12px;color:var(--text);
-  background:var(--bg);border:1px solid var(--border);
-  padding:5px 12px;border-radius:7px;cursor:pointer;
-  transition:background .15s;
-}
+.cli-label{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text-4);margin-right:8px}
+.cli-snippet{font-family:monospace;font-size:12px;color:var(--text);background:var(--bg);border:1px solid var(--border);padding:5px 12px;border-radius:7px;cursor:pointer;transition:background .15s}
 .cli-snippet:hover{background:var(--border)}
 .cli-prompt{color:var(--blue)}
 
-/* ── PLAN CARDS ── */
+/* PLAN CARDS */
 .plans-wrap{max-width:960px;margin:0 auto;padding:36px 24px 0}
-.plans-head{margin-bottom:24px;text-align:center}
-.plans-head h2{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-bottom:4px}
-.plans-head p{font-size:14px;color:var(--text-3)}
 .plans{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
-
-/* Card base */
-.card{
-  background:var(--surface);border-radius:14px;
-  padding:28px 24px;border:1px solid var(--border);
-  display:flex;flex-direction:column;
-  box-shadow:0 1px 3px rgba(0,0,0,.05),0 2px 8px rgba(0,0,0,.04);
-  transition:box-shadow .2s;
-}
+.card{background:var(--surface);border-radius:14px;padding:28px 24px;border:1px solid var(--border);display:flex;flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.05),0 2px 8px rgba(0,0,0,.04);transition:box-shadow .2s}
 .card:hover{box-shadow:0 4px 16px rgba(0,0,0,.09)}
 .card.pop{border:2px solid var(--black);position:relative}
-.pop-badge{
-  position:absolute;top:-11px;left:50%;transform:translateX(-50%);
-  background:var(--black);color:var(--white);
-  font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
-  padding:4px 14px;border-radius:20px;white-space:nowrap;
-}
-.card-tier{
-  font-size:10px;font-weight:600;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--text-4);
-  margin-bottom:5px;
-}
-.card-price-main{
-  font-size:40px;font-weight:700;letter-spacing:-.04em;
-  color:var(--text);line-height:1;margin-bottom:3px;
-}
-.card-price-main.lg{font-size:26px;letter-spacing:-.02em;line-height:1.15}
+.pop-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--black);color:var(--white);font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 14px;border-radius:20px;white-space:nowrap}
+.card-tier{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-4);margin-bottom:5px}
+
+/* Unified price block — $0 and $49 are identical size */
+.card-price-main{font-size:40px;font-weight:700;letter-spacing:-.04em;color:var(--text);line-height:1;margin-bottom:3px}
+.card-price-from{font-size:13px;font-weight:500;color:var(--text-4);display:inline;letter-spacing:.01em;vertical-align:text-top;margin-right:2px}
+.card-price-mo{font-size:14px;font-weight:500;color:var(--text-3);letter-spacing:-.01em}
+.card-price-main.custom{font-size:26px;letter-spacing:-.02em;line-height:1.15}
+
 .card-price-sub{font-size:12px;color:var(--text-3);margin-bottom:16px;line-height:1.4}
-.card-desc{font-size:13px;color:var(--text-2);line-height:1.55;margin-bottom:18px;min-height:52px}
-.btn-primary{
-  width:100%;padding:11px;border-radius:9px;border:none;
-  background:var(--black);color:var(--white);
-  font-size:13px;font-weight:600;cursor:pointer;
-  font-family:inherit;margin-bottom:5px;
-  transition:opacity .15s;
-}
+.card-desc{font-size:13px;color:var(--text-2);line-height:1.55;margin-bottom:18px;min-height:90px}
+.btn-primary{width:100%;padding:11px;border-radius:9px;border:none;background:var(--black);color:var(--white);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:5px;transition:opacity .15s}
 .btn-primary:hover{opacity:.82}
 .btn-primary.blue{background:var(--blue)}
-.btn-outline{
-  width:100%;padding:10px;border-radius:9px;
-  border:1px solid var(--gray-20);background:transparent;color:var(--text);
-  font-size:13px;font-weight:600;cursor:pointer;
-  font-family:inherit;margin-bottom:5px;
-  transition:background .15s,border-color .15s;
-}
+.btn-outline{width:100%;padding:10px;border-radius:9px;border:1px solid var(--gray-20);background:transparent;color:var(--text);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:5px;transition:background .15s,border-color .15s}
 .btn-outline:hover{background:var(--gray-10);border-color:var(--gray-30)}
-.card-note{
-  font-size:11px;color:var(--text-4);text-align:center;
-  margin-bottom:20px;font-family:monospace;
-}
+.card-note{font-size:11px;color:var(--text-4);text-align:center;margin-bottom:20px;font-family:monospace}
 .card-divider{height:1px;background:var(--border);margin:18px 0}
-.card-label{
-  font-size:10px;font-weight:600;color:var(--text-4);
-  letter-spacing:.06em;text-transform:uppercase;margin-bottom:11px;
-}
+.card-label{font-size:10px;font-weight:600;color:var(--text-4);letter-spacing:.06em;text-transform:uppercase;margin-bottom:11px}
 .feat{display:flex;align-items:flex-start;gap:8px;margin-bottom:9px}
 .feat .ck{color:var(--blue);flex-shrink:0;margin-top:2px;font-size:13px;font-weight:700}
 .feat .tx{font-size:13px;line-height:1.45;color:var(--text-2)}
 .card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
-.tag{
-  display:inline-block;padding:3px 9px;border-radius:5px;
-  background:var(--gray-10);font-size:11px;font-weight:500;color:var(--text-2);
-  border:1px solid var(--gray-20);
-}
+.tag{display:inline-block;padding:3px 9px;border-radius:5px;background:var(--gray-10);font-size:11px;font-weight:500;color:var(--text-2);border:1px solid var(--gray-20)}
 
-/* Growth & Enterprise combined card */
-.card-ge{
-  background:var(--surface);border-radius:14px;
-  border:1px solid var(--border);overflow:hidden;
-  box-shadow:0 1px 3px rgba(0,0,0,.05),0 2px 8px rgba(0,0,0,.04);
-  display:flex;flex-direction:column;
-  transition:box-shadow .2s;
-}
-.card-ge:hover{box-shadow:0 4px 16px rgba(0,0,0,.09)}
-.ge-seg{padding:24px 24px 20px;display:flex;flex-direction:column;flex:1}
-.ge-seg+.ge-seg{border-top:1px solid var(--border);background:var(--gray-10)}
-.ge-tag-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
-.ge-tag{
-  display:inline-block;padding:3px 8px;border-radius:5px;
-  background:var(--white);font-size:11px;font-weight:500;
-  color:var(--text-2);border:1px solid var(--gray-20);
-}
-.ge-tag.dark{background:var(--gray-10);border-color:var(--gray-20)}
-
-/* ── Compare CTA ── */
-.compare-cta{
-  text-align:center;padding:18px 24px 0;
-  max-width:960px;margin:0 auto;
-}
-.btn-compare{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:9px 22px;border-radius:9px;
-  border:1px solid var(--gray-20);background:transparent;
-  color:var(--text-2);font-size:13px;font-weight:600;
-  cursor:pointer;font-family:inherit;
-  transition:all .15s;
-}
+/* COMPARE CTA */
+.compare-cta{text-align:center;padding:18px 24px 0;max-width:960px;margin:0 auto}
+.btn-compare{display:inline-flex;align-items:center;gap:6px;padding:9px 22px;border-radius:9px;border:1px solid var(--gray-20);background:transparent;color:var(--text-2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
 .btn-compare:hover{background:var(--black);color:var(--white);border-color:var(--black)}
-.cp-note-below{
-  font-size:11px;color:var(--text-4);margin-top:6px;
-  font-family:monospace;
-}
 
-/* ── STARTUP ── */
+/* STARTUP */
 .startup-wrap{max-width:960px;margin:36px auto 0;padding:0 24px}
-.startup-card{
-  background:var(--black);border-radius:14px;padding:28px 32px;
-  display:flex;justify-content:space-between;align-items:center;gap:20px;
-}
-.startup-lbl{
-  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--blue-link-dark);margin-bottom:6px;
-}
+.startup-card{background:var(--black);border-radius:14px;padding:28px 32px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.startup-lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-link-dark);margin-bottom:6px}
 .startup-title{font-size:19px;font-weight:600;color:var(--white);margin-bottom:5px;letter-spacing:-.01em}
 .startup-desc{font-size:13px;color:var(--gray-50);line-height:1.5}
-.btn-startup{
-  flex-shrink:0;padding:10px 22px;border-radius:9px;
-  border:1px solid var(--gray-80);background:transparent;
-  color:var(--white);font-size:13px;font-weight:600;
-  cursor:pointer;font-family:inherit;white-space:nowrap;
-  transition:background .15s,border-color .15s;
-}
+.btn-startup{flex-shrink:0;padding:10px 22px;border-radius:9px;border:1px solid var(--gray-80);background:transparent;color:var(--white);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,border-color .15s}
 .btn-startup:hover{background:var(--white);color:var(--black);border-color:var(--white)}
 
-/* ── COMPARE TABLE ── */
+/* COMPARE TABLE */
 .cp-wrap{max-width:960px;margin:52px auto 72px;padding:0 24px;scroll-margin-top:52px}
 .cp-header{text-align:center;margin-bottom:36px}
 .cp-header h2{font-size:28px;font-weight:700;letter-spacing:-.03em;margin-bottom:6px}
 .cp-header p{font-size:14px;color:var(--text-3)}
-.cp-header .cp-meta{font-size:11px;color:var(--text-4);margin-top:4px;font-family:monospace}
-
 .cp-table{width:100%;border-collapse:collapse}
 .cp-thead{position:sticky;top:52px;z-index:10;background:var(--bg)}
 .cp-thead td{padding:0}
 .cp-th-spacer{width:38%;border-bottom:2px solid var(--gray-20)}
-.cp-th-plan{
-  width:15.5%;padding:16px 8px 14px;
-  text-align:center;border-bottom:2px solid var(--gray-20);
-  vertical-align:bottom;
-}
-.cp-plan-name{
-  font-size:10px;font-weight:700;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--text-4);margin-bottom:4px;
-}
-.cp-plan-price{
-  font-size:17px;font-weight:600;letter-spacing:-.02em;
-  color:var(--text);margin-bottom:8px;
-}
-.cp-plan-price span{
-  font-size:10px;font-weight:400;color:var(--text-4);
-  display:block;line-height:1.4;margin-top:2px;font-family:monospace;
-}
-.cp-plan-btn{
-  display:inline-block;padding:6px 14px;border-radius:7px;
-  font-size:11px;font-weight:600;cursor:pointer;
-  font-family:inherit;text-align:center;white-space:nowrap;border:none;
-}
+.cp-th-plan{width:15.5%;padding:16px 8px 14px;text-align:center;border-bottom:2px solid var(--gray-20);vertical-align:bottom}
+.cp-plan-name{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-4);margin-bottom:4px}
+.cp-plan-price{font-size:17px;font-weight:600;letter-spacing:-.02em;color:var(--text);margin-bottom:8px}
+.cp-plan-price span{font-size:10px;font-weight:400;color:var(--text-4);display:block;line-height:1.4;margin-top:2px;font-family:monospace}
+.cp-plan-btn{display:inline-block;padding:6px 14px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;text-align:center;white-space:nowrap;border:none}
 .cp-plan-btn.outline{border:1px solid var(--gray-20);background:var(--white);color:var(--text)}
 .cp-plan-btn.outline:hover{border-color:var(--black);background:var(--black);color:var(--white)}
 .cp-plan-btn.filled{background:var(--black);color:var(--white)}
 .cp-plan-btn.blue{background:var(--blue);color:var(--white)}
-
-/* Category accordion */
 .cp-cat-row{cursor:pointer}
 .cp-cat-row:hover .cp-cat-label{color:var(--text)}
-.cp-cat-cell{
-  padding:12px 0;font-size:10px;font-weight:700;
-  letter-spacing:.05em;text-transform:uppercase;color:var(--text-3);
-  display:flex;align-items:center;gap:9px;
-  border-top:1px solid var(--gray-20);
-}
+.cp-cat-cell{padding:12px 0;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-3);display:flex;align-items:center;gap:9px;border-top:1px solid var(--gray-20)}
 .cp-cat-td{border-top:1px solid var(--gray-20);padding:12px 8px;text-align:center;vertical-align:middle}
-.cp-toggle{
-  width:18px;height:18px;border-radius:50%;border:1px solid var(--gray-20);
-  background:var(--white);display:inline-flex;align-items:center;justify-content:center;
-  font-size:9px;color:var(--gray-50);flex-shrink:0;
-  transition:all .2s;
-}
+.cp-toggle{width:18px;height:18px;border-radius:50%;border:1px solid var(--gray-20);background:var(--white);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:var(--gray-50);flex-shrink:0;transition:all .2s}
 .cp-toggle.open{background:var(--black);color:var(--white);border-color:var(--black)}
-
-/* Feature rows */
 .cp-feat-row{display:none}
 .cp-feat-row.visible{display:table-row}
-.cp-feat-row td{
-  padding:10px 8px;border-bottom:1px solid var(--gray-10);
-  vertical-align:middle;font-size:13px;
-}
+.cp-feat-row td{padding:10px 8px;border-bottom:1px solid var(--gray-10);vertical-align:middle;font-size:13px}
 .cp-feat-row td:first-child{padding-left:0;color:var(--text-2)}
 .cp-feat-row td:not(:first-child){text-align:center;font-weight:500;color:var(--text)}
-
 .cp-check{color:var(--blue);font-size:14px;font-weight:700}
 .cp-dash{color:var(--gray-30);font-size:17px}
 .cp-val{font-size:12px;font-weight:600;color:var(--text)}
-.cp-addon{
-  font-size:10px;font-weight:600;color:var(--blue);
-  background:rgba(0,82,242,.08);padding:2px 7px;border-radius:4px;white-space:nowrap;
-}
-.cp-new{
-  font-size:10px;font-weight:600;color:var(--gray-80);
-  background:var(--gray-10);padding:2px 7px;border-radius:4px;border:1px solid var(--gray-20);
-  white-space:nowrap;
-}
+.cp-addon{font-size:10px;font-weight:600;color:var(--blue);background:rgba(0,82,242,.08);padding:2px 7px;border-radius:4px;white-space:nowrap}
+.cp-new{font-size:10px;font-weight:600;color:var(--gray-80);background:var(--gray-10);padding:2px 7px;border-radius:4px;border:1px solid var(--gray-20);white-space:nowrap}
 
-/* ── AI RECOMMENDER ── */
+/* AI RECOMMENDER */
 .rec-wrap{max-width:600px;margin:0 auto 60px;padding:0 24px;text-align:center}
 .rec-wrap h2{font-size:22px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px}
 .rec-sub{font-size:14px;color:var(--text-3);margin-bottom:20px}
-.rec-box{
-  background:var(--white);border-radius:12px;
-  padding:20px 22px;border:1px solid var(--border);text-align:left;
-  box-shadow:0 1px 4px rgba(0,0,0,.05);
-}
+.rec-box{background:var(--white);border-radius:12px;padding:20px 22px;border:1px solid var(--border);text-align:left;box-shadow:0 1px 4px rgba(0,0,0,.05)}
 .rec-prompt{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px}
-.rec-icon{
-  width:28px;height:28px;border-radius:50%;
-  background:rgba(0,82,242,.08);display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;font-size:12px;
-}
+.rec-icon{width:28px;height:28px;border-radius:50%;background:rgba(0,82,242,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px}
 .rec-prompt p{font-size:13px;color:var(--text-3);line-height:1.5}
 .rec-row{display:flex;gap:8px}
-.rec-input{
-  flex:1;padding:9px 13px;border-radius:9px;border:1px solid var(--border);
-  font-size:13px;font-family:inherit;outline:none;
-  color:var(--text);background:var(--bg);
-}
+.rec-input{flex:1;padding:9px 13px;border-radius:9px;border:1px solid var(--border);font-size:13px;font-family:inherit;outline:none;color:var(--text);background:var(--bg)}
 .rec-input:focus{border-color:var(--blue)}
-.rec-btn{
-  padding:9px 18px;border-radius:9px;border:none;
-  background:var(--black);color:var(--white);
-  font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;
-}
+.rec-btn{padding:9px 18px;border-radius:9px;border:none;background:var(--black);color:var(--white);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
 .rec-result{margin-top:10px}
-.rec-result-card{
-  background:var(--gray-10);border:1px solid var(--border);
-  border-radius:10px;padding:16px 18px;animation:fadeUp .15s ease;
-}
+.rec-result-card{background:var(--gray-10);border:1px solid var(--border);border-radius:10px;padding:16px 18px;animation:fadeUp .15s ease}
 .rec-result-card.gentle{color:var(--text-3);font-size:13px;text-align:center;padding:14px}
 .rec-plan-label{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text-4);margin-bottom:3px}
 .rec-plan-name{font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px;letter-spacing:-.01em}
 .rec-plan-text{font-size:13px;line-height:1.6;color:var(--text-2);margin-bottom:12px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── PLATFORM SECTION ── */
+/* PLATFORM */
 .oa-wrap{background:var(--black);padding:64px 24px}
 .oa-inner{max-width:960px;margin:0 auto}
-.oa-eyebrow{
-  font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--blue-link-dark);margin-bottom:12px;
-}
-
-/* Header: two-column split */
+.oa-eyebrow{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue-link-dark);margin-bottom:12px}
 .oa-header{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:48px;align-items:start}
-.oa-title{
-  font-size:clamp(34px,4vw,52px);font-weight:700;line-height:1.05;
-  letter-spacing:-.04em;color:var(--white);
-}
-.oa-lead{
-  font-size:15px;line-height:1.7;color:var(--gray-50);margin-bottom:28px;
-}
+.oa-title{font-size:clamp(34px,4vw,52px);font-weight:700;line-height:1.05;letter-spacing:-.04em;color:var(--white)}
+.oa-lead{font-size:15px;line-height:1.7;color:var(--gray-50);margin-bottom:28px}
 .oa-lead em{font-style:normal;color:var(--white)}
-
-/* Stats row */
-.oa-stats{display:flex;align-items:center;gap:0}
+.oa-stats{display:flex;align-items:center}
 .oa-stat{display:flex;flex-direction:column;gap:3px}
-.oa-stat-n{
-  font-size:32px;font-weight:700;letter-spacing:-.04em;color:var(--white);line-height:1;
-}
+.oa-stat-n{font-size:32px;font-weight:700;letter-spacing:-.04em;color:var(--white);line-height:1}
 .oa-stat-l{font-size:11px;color:var(--gray-50);line-height:1.4}
 .oa-stat-div{width:1px;height:36px;background:var(--gray-80);margin:0 24px}
-
-/* Feature grid */
 .oa-features{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gray-80);border-radius:12px;overflow:hidden}
-.oa-feat{
-  background:var(--gray-90);padding:28px 22px;
-  display:flex;flex-direction:column;gap:14px;
-}
-.oa-feat-icon{
-  width:44px;height:44px;border-radius:10px;
-  background:var(--gray-80);display:flex;align-items:center;justify-content:center;
-}
-.oa-feat-icon .material-symbols-rounded{
-  font-size:22px;color:var(--blue-link-dark);
-  font-variation-settings:'FILL' 0,'wght' 300,'GRAD' 0,'opsz' 24;
-}
+.oa-feat{background:var(--gray-90);padding:28px 22px;display:flex;flex-direction:column;gap:14px}
+.oa-feat-icon{width:44px;height:44px;border-radius:10px;background:var(--gray-80);display:flex;align-items:center;justify-content:center}
+.oa-feat-icon .material-symbols-rounded{font-size:22px;color:var(--blue-link-dark);font-variation-settings:'FILL' 0,'wght' 300,'GRAD' 0,'opsz' 24}
 .oa-feat-body h3{font-size:14px;font-weight:600;color:var(--white);margin-bottom:6px;line-height:1.3}
 .oa-feat-body p{font-size:12px;line-height:1.65;color:var(--gray-50)}
 
-/* ── MANIFESTO ── */
+/* MANIFESTO */
 .manifesto-wrap{max-width:960px;margin:0 auto;padding:56px 24px}
 .manifesto-wrap h2{font-size:24px;font-weight:700;letter-spacing:-.02em;margin-bottom:4px}
 .manifesto-sub{font-size:14px;color:var(--text-3);margin-bottom:36px}
@@ -515,72 +220,42 @@ body{
 .manifesto-col h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:7px}
 .manifesto-col p{font-size:13px;line-height:1.7;color:var(--text-2)}
 
-/* ── FAQ ── */
+/* FAQ */
 .faq-wrap{max-width:660px;margin:0 auto 60px;padding:0 24px}
 .faq-wrap h2{font-size:24px;font-weight:700;letter-spacing:-.02em;text-align:center;margin-bottom:28px}
 .faq-item{border-bottom:1px solid var(--border);padding:18px 0}
-.faq-q{
-  display:flex;justify-content:space-between;align-items:flex-start;
-  width:100%;background:none;border:none;cursor:pointer;
-  padding:0;text-align:left;font-family:inherit;gap:14px;
-}
+.faq-q{display:flex;justify-content:space-between;align-items:flex-start;width:100%;background:none;border:none;cursor:pointer;padding:0;text-align:left;font-family:inherit;gap:14px}
 .faq-q-text{font-size:14px;font-weight:600;color:var(--text);line-height:1.4}
 .faq-ch{transition:transform .2s;color:var(--text-3);flex-shrink:0;font-size:16px;margin-top:3px}
 .faq-ch.open{transform:rotate(180deg)}
 .faq-a{margin-top:10px;font-size:13px;line-height:1.7;color:var(--text-2);display:none}
 .faq-a.open{display:block}
-.faq-a code{
-  font-family:monospace;background:var(--gray-10);
-  padding:2px 5px;border-radius:4px;font-size:12px;color:var(--text);
-  border:1px solid var(--gray-20);
-}
+.faq-a code{font-family:monospace;background:var(--gray-10);padding:2px 5px;border-radius:4px;font-size:12px;color:var(--text);border:1px solid var(--gray-20)}
 
-/* ── BOTTOM CTA ── */
+/* BOTTOM CTA */
 .bcta{text-align:center;padding:52px 24px 60px;max-width:560px;margin:0 auto}
 .bcta h2{font-size:clamp(22px,3.5vw,34px);font-weight:700;letter-spacing:-.03em;margin-bottom:6px;line-height:1.15}
 .bcta-sub{font-size:14px;color:var(--text-3);margin-bottom:24px}
 .bcta-actions{display:flex;justify-content:center;gap:10px}
-.btn-cta-primary{
-  padding:12px 26px;border-radius:9px;border:none;
-  background:var(--blue);color:var(--white);
-  font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;
-  transition:opacity .15s;
-}
+.btn-cta-primary{padding:12px 26px;border-radius:9px;border:none;background:var(--blue);color:var(--white);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity .15s}
 .btn-cta-primary:hover{opacity:.88}
-.btn-cta-ghost{
-  padding:11px 26px;border-radius:9px;
-  border:1px solid var(--gray-20);background:transparent;
-  color:var(--text-2);font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;
-  transition:all .15s;
-}
+.btn-cta-ghost{padding:11px 26px;border-radius:9px;border:1px solid var(--gray-20);background:transparent;color:var(--text-2);font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s}
 .btn-cta-ghost:hover{border-color:var(--black);color:var(--text)}
 .bcta-cli{font-size:11px;color:var(--text-4);margin-top:10px;font-family:monospace}
 
-/* ── FOOTER ── */
+/* FOOTER */
 .footer{border-top:1px solid var(--border);padding:44px 32px 28px;max-width:960px;margin:0 auto}
 .footer-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;font-size:12px;color:var(--text-3);margin-bottom:28px}
-.footer-col-title{
-  font-weight:700;color:var(--text);margin-bottom:10px;
-  font-size:10px;text-transform:uppercase;letter-spacing:.07em;
-}
+.footer-col-title{font-weight:700;color:var(--text);margin-bottom:10px;font-size:10px;text-transform:uppercase;letter-spacing:.07em}
 .footer-col div{margin-bottom:7px;cursor:pointer}
 .footer-col div:hover{color:var(--text)}
-.footer-bottom{
-  border-top:1px solid var(--border);padding-top:18px;
-  display:flex;justify-content:space-between;align-items:center;
-  font-size:11px;color:var(--text-4);flex-wrap:wrap;gap:10px;
-}
-.footer-brand{
-  display:flex;align-items:center;gap:8px;
-  color:var(--text-4);font-size:12px;font-weight:500;
-}
+.footer-bottom{border-top:1px solid var(--border);padding-top:18px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-4);flex-wrap:wrap;gap:10px}
+.footer-brand{display:flex;align-items:center;gap:8px;color:var(--text-4);font-size:12px;font-weight:500}
 </style>
 </head>
 <body>
 
-<!-- TODO: Replace with official Amplitude logo from brand.amplitude.com -->
-
-<!-- ── NAV ── -->
+<!-- NAV -->
 <nav class="nav">
   <a href="/" class="nav-brand">
     <div class="logo-placeholder" aria-label="Amplitude logo">A</div>
@@ -599,7 +274,7 @@ body{
   </div>
 </nav>
 
-<!-- ── HERO — compact ── -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
     <h1>All of Amplitude.<br><em>Free to start.</em></h1>
@@ -608,7 +283,7 @@ body{
   </div>
 </section>
 
-<!-- ── TOOLS BAR ── -->
+<!-- TOOLS BAR -->
 <div class="tools-bar">
   <div class="tools-inner">
     <span class="tools-label">Works inside</span>
@@ -638,13 +313,13 @@ body{
   </div>
 </div>
 
-<!-- ── PLAN CARDS ── -->
+<!-- PLAN CARDS -->
 <div class="plans-wrap">
   <div class="plans">
 
     <!-- Starter -->
     <div class="card">
-      <div class="card-tier">Starter</div>
+      <div class="card-tier">Free</div>
       <div class="card-price-main">$0</div>
       <div class="card-price-sub">Free forever · no credit card</div>
       <p class="card-desc">Try Amplitude with real data. Every product included. Event cap is hard. You'll never be charged on Starter.</p>
@@ -653,8 +328,8 @@ body{
       <div class="card-divider"></div>
       <div class="card-label">You can:</div>
       <div class="feat"><span class="ck">✓</span><span class="tx">Find where users drop off</span></div>
-      <div class="feat"><span class="ck">✓</span><span class="tx">Watch sessions to see what's confusing</span></div>
-      <div class="feat"><span class="ck">✓</span><span class="tx">Ship changes behind flags, roll back if needed</span></div>
+      <div class="feat"><span class="ck">✓</span><span class="tx">Watch session replays to see what's confusing</span></div>
+      <div class="feat"><span class="ck">✓</span><span class="tx">Ship changes behind feature flags, roll back if needed</span></div>
       <div class="feat"><span class="ck">✓</span><span class="tx">Run A/B tests on new features</span></div>
       <div class="feat"><span class="ck">✓</span><span class="tx">Query your data from Claude, Cursor, or any MCP tool</span></div>
       <div class="card-divider"></div>
@@ -672,20 +347,21 @@ body{
     <div class="card pop">
       <div class="pop-badge">Most popular</div>
       <div class="card-tier">Plus</div>
-      <div class="card-price-main lg">Pay as you grow</div>
-      <div class="card-price-sub">Free up to 2M events · CC required</div>
-      <p class="card-desc">Start free. Scale without switching plans. Same per-event rate when you go over. No penalty pricing.</p>
+      <div class="card-price-main">
+        <span class="card-price-from">from</span>$49<span class="card-price-mo">/mo</span>
+      </div>
+      <div class="card-price-sub">Scales with event volume</div>
+      <p class="card-desc">Everything you need to ship and measure at scale. Pay for what you use. No surprise bills. No penalty pricing.</p>
       <button class="btn-primary blue">Get started</button>
-      <span class="card-note">You'll be notified before any charges</span>
+      <span class="card-note">Billed monthly · cancel anytime</span>
       <div class="card-divider"></div>
       <div class="card-label">Everything in Starter, plus:</div>
-      <div class="feat"><span class="ck">✓</span><span class="tx">Unlimited events, pay as you scale</span></div>
       <div class="feat"><span class="ck">✓</span><span class="tx">2-year data retention</span></div>
       <div class="feat"><span class="ck">✓</span><span class="tx">Unlimited behavioral cohorts</span></div>
       <div class="feat"><span class="ck">✓</span><span class="tx">Revenue analytics</span></div>
       <div class="feat"><span class="ck">✓</span><span class="tx">Real-time data streaming</span></div>
       <div class="feat"><span class="ck">✓</span><span class="tx">NPS surveys and advanced guides</span></div>
-      <div class="feat"><span class="ck">✓</span><span class="tx">Session replay, heatmaps, advanced experiments as add-ons</span></div>
+      <div class="feat"><span class="ck">✓</span><span class="tx">Session replays, heatmaps, advanced experiments as add-ons</span></div>
       <div class="card-divider"></div>
       <div class="card-tags">
         <span class="tag">Usage-based</span>
@@ -698,13 +374,13 @@ body{
     <!-- Growth & Enterprise -->
     <div class="card">
       <div class="card-tier">Growth &amp; Enterprise</div>
-      <div class="card-price-main">Custom</div>
+      <div class="card-price-main custom">Custom</div>
       <div class="card-price-sub">Scaling teams and large organizations</div>
       <p class="card-desc">For teams that have outgrown Plus. Unlimited experiments, advanced stats, and the governance controls large organizations require.</p>
       <button class="btn-primary">Talk to our team</button>
       <span class="card-note">Custom volume · custom support</span>
       <div class="card-divider"></div>
-      <div class="card-label">Growth includes:</div>
+      <div class="card-label">Plans include:</div>
       <div class="feat"><span class="ck">✓</span><span class="tx">Unlimited concurrent experiments</span></div>
       <div class="feat"><span class="ck">✓</span><span class="tx">Sequential testing, CUPED, auto-rollback</span></div>
       <div class="feat"><span class="ck">✓</span><span class="tx">Error monitoring with user impact scoring</span></div>
@@ -718,8 +394,8 @@ body{
       <div class="feat"><span class="ck">✓</span><span class="tx">Custom governance and compliance controls</span></div>
     </div>
 
-  </div><!-- /plans -->
-</div><!-- /plans-wrap -->
+  </div>
+</div>
 
 <!-- Compare CTA -->
 <div class="compare-cta">
@@ -729,7 +405,7 @@ body{
   </button>
 </div>
 
-<!-- ── STARTUP BANNER ── -->
+<!-- STARTUP BANNER -->
 <div class="startup-wrap">
   <div class="startup-card">
     <div>
@@ -741,7 +417,7 @@ body{
   </div>
 </div>
 
-<!-- ── COMPARE TABLE ── -->
+<!-- COMPARE TABLE -->
 <section id="comparePlans" class="cp-wrap">
   <div class="cp-header">
     <h2>Compare plans</h2>
@@ -753,13 +429,13 @@ body{
       <tr>
         <td class="cp-th-spacer"></td>
         <td class="cp-th-plan">
-          <div class="cp-plan-name">Starter</div>
+          <div class="cp-plan-name">Free</div>
           <div class="cp-plan-price">Free<span>2M events · no CC</span></div>
           <button class="cp-plan-btn outline">Start free</button>
         </td>
         <td class="cp-th-plan">
           <div class="cp-plan-name">Plus</div>
-          <div class="cp-plan-price">Pay as you grow<span>Free up to 2M events</span></div>
+          <div class="cp-plan-price">From $49<span>/ month</span></div>
           <button class="cp-plan-btn blue">Get started</button>
         </td>
         <td class="cp-th-plan">
@@ -779,10 +455,7 @@ body{
       <!-- ANALYTICS -->
       <tr class="cp-cat-row" onclick="toggleCat('analytics')">
         <td colspan="5" style="padding:0;border-top:2px solid var(--gray-20)">
-          <div class="cp-cat-cell">
-            <span class="cp-toggle" id="toggle-analytics">+</span>
-            Analytics
-          </div>
+          <div class="cp-cat-cell"><span class="cp-toggle" id="toggle-analytics">+</span>Analytics</div>
         </td>
       </tr>
       <tr class="cp-feat-row" data-cat="analytics"><td>Events per month</td><td><span class="cp-val">2M (hard cap)</span></td><td><span class="cp-val">Pay-as-you-go</span></td><td><span class="cp-val">Custom</span></td><td><span class="cp-val">Custom</span></td></tr>
@@ -801,10 +474,7 @@ body{
       <!-- SESSION REPLAY -->
       <tr class="cp-cat-row" onclick="toggleCat('replay')">
         <td colspan="5" style="padding:0;border-top:2px solid var(--gray-20)">
-          <div class="cp-cat-cell">
-            <span class="cp-toggle" id="toggle-replay">+</span>
-            Session Replay
-          </div>
+          <div class="cp-cat-cell"><span class="cp-toggle" id="toggle-replay">+</span>Session Replay</div>
         </td>
       </tr>
       <tr class="cp-feat-row" data-cat="replay"><td>Session replays per month</td><td><span class="cp-val">1,000</span></td><td><span class="cp-addon">Add-on</span></td><td><span class="cp-val">10,000 included</span></td><td><span class="cp-val">Custom</span></td></tr>
@@ -817,10 +487,7 @@ body{
       <!-- EXPERIMENTS -->
       <tr class="cp-cat-row" onclick="toggleCat('experiments')">
         <td colspan="5" style="padding:0;border-top:2px solid var(--gray-20)">
-          <div class="cp-cat-cell">
-            <span class="cp-toggle" id="toggle-experiments">+</span>
-            Experiments
-          </div>
+          <div class="cp-cat-cell"><span class="cp-toggle" id="toggle-experiments">+</span>Experiments</div>
         </td>
       </tr>
       <tr class="cp-feat-row" data-cat="experiments"><td>Concurrent experiments</td><td><span class="cp-val">3</span></td><td><span class="cp-addon">Add-on</span></td><td><span class="cp-val">Unlimited</span></td><td><span class="cp-val">Unlimited</span></td></tr>
@@ -833,10 +500,7 @@ body{
       <!-- FEATURE FLAGS -->
       <tr class="cp-cat-row" onclick="toggleCat('flags')">
         <td colspan="5" style="padding:0;border-top:2px solid var(--gray-20)">
-          <div class="cp-cat-cell">
-            <span class="cp-toggle" id="toggle-flags">+</span>
-            Feature Flags
-          </div>
+          <div class="cp-cat-cell"><span class="cp-toggle" id="toggle-flags">+</span>Feature Flags</div>
         </td>
       </tr>
       <tr class="cp-feat-row" data-cat="flags"><td>Unlimited feature flags</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
@@ -848,11 +512,7 @@ body{
       <!-- ERROR MONITORING -->
       <tr class="cp-cat-row" onclick="toggleCat('errors')">
         <td colspan="5" style="padding:0;border-top:2px solid var(--gray-20)">
-          <div class="cp-cat-cell">
-            <span class="cp-toggle" id="toggle-errors">+</span>
-            Error Monitoring
-            <span class="cp-new">New</span>
-          </div>
+          <div class="cp-cat-cell"><span class="cp-toggle" id="toggle-errors">+</span>Error Monitoring <span class="cp-new">New</span></div>
         </td>
       </tr>
       <tr class="cp-feat-row" data-cat="errors"><td>Error capture and grouping</td><td><span class="cp-addon">Add-on</span></td><td><span class="cp-addon">Add-on</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
@@ -863,10 +523,7 @@ body{
       <!-- GUIDES & SURVEYS -->
       <tr class="cp-cat-row" onclick="toggleCat('guides')">
         <td colspan="5" style="padding:0;border-top:2px solid var(--gray-20)">
-          <div class="cp-cat-cell">
-            <span class="cp-toggle" id="toggle-guides">+</span>
-            Guides and Surveys
-          </div>
+          <div class="cp-cat-cell"><span class="cp-toggle" id="toggle-guides">+</span>Guides and Surveys</div>
         </td>
       </tr>
       <tr class="cp-feat-row" data-cat="guides"><td>In-app product tours</td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
@@ -878,10 +535,7 @@ body{
       <!-- PLATFORM & ADMIN -->
       <tr class="cp-cat-row" onclick="toggleCat('platform')">
         <td colspan="5" style="padding:0;border-top:2px solid var(--gray-20)">
-          <div class="cp-cat-cell">
-            <span class="cp-toggle" id="toggle-platform">+</span>
-            Platform and Admin
-          </div>
+          <div class="cp-cat-cell"><span class="cp-toggle" id="toggle-platform">+</span>Platform and Admin</div>
         </td>
       </tr>
       <tr class="cp-feat-row" data-cat="platform"><td>Seats</td><td><span class="cp-val">Unlimited</span></td><td><span class="cp-val">Unlimited</span></td><td><span class="cp-val">Unlimited</span></td><td><span class="cp-val">Unlimited</span></td></tr>
@@ -895,12 +549,11 @@ body{
       <tr class="cp-feat-row" data-cat="platform"><td>Priority support</td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td><td><span class="cp-check">✓</span></td></tr>
       <tr class="cp-feat-row" data-cat="platform"><td>Dedicated CSM</td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td></tr>
       <tr class="cp-feat-row" data-cat="platform"><td>Uptime SLA</td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-dash">—</span></td><td><span class="cp-check">✓</span></td></tr>
-
     </tbody>
   </table>
 </section>
 
-<!-- ── AI RECOMMENDER ── -->
+<!-- AI RECOMMENDER -->
 <div class="rec-wrap">
   <h2>Not sure which plan fits?</h2>
   <p class="rec-sub">Tell us what you're building and we'll point you in the right direction.</p>
@@ -917,20 +570,18 @@ body{
   </div>
 </div>
 
-<!-- ── PLATFORM SECTION — visual split layout ── -->
+<!-- PLATFORM SECTION -->
 <section class="oa-wrap">
   <div class="oa-inner">
-
-    <!-- Header row -->
     <div class="oa-header">
-      <div class="oa-header-left">
+      <div>
         <div class="oa-eyebrow">The platform</div>
         <h2 class="oa-title">Every signal.<br>Connected to<br>every user.</h2>
       </div>
-      <div class="oa-header-right">
+      <div>
         <p class="oa-lead">Most tools show you what happened. Amplitude shows you <em>who it happened to</em>. And what they did next. That's the difference between a number and a decision.</p>
         <div class="oa-stats">
-          <div class="oa-stat"><span class="oa-stat-n">1 T+</span><span class="oa-stat-l">events tracked <br>per month</br></span></div>
+          <div class="oa-stat"><span class="oa-stat-n">1T+</span><span class="oa-stat-l">events tracked<br>per month</span></div>
           <div class="oa-stat-div"></div>
           <div class="oa-stat"><span class="oa-stat-n">4,700+</span><span class="oa-stat-l">companies<br>on Amplitude</span></div>
           <div class="oa-stat-div"></div>
@@ -938,51 +589,40 @@ body{
         </div>
       </div>
     </div>
-
-    <!-- Feature grid — icon-forward -->
     <div class="oa-features">
       <div class="oa-feat">
-        <div class="oa-feat-icon">
-          <span class="material-symbols-rounded">person_search</span>
-        </div>
+        <div class="oa-feat-icon"><span class="material-symbols-rounded">person_search</span></div>
         <div class="oa-feat-body">
           <h3>User-level analytics</h3>
           <p>Every event, error, and session is tied to a real user. Ask "who was affected," not just "how many."</p>
         </div>
       </div>
       <div class="oa-feat">
-        <div class="oa-feat-icon">
-          <span class="material-symbols-rounded">screen_search_desktop</span>
-        </div>
+        <div class="oa-feat-icon"><span class="material-symbols-rounded">screen_search_desktop</span></div>
         <div class="oa-feat-body">
           <h3>Session replay + heatmaps</h3>
           <p>Watch exactly what users did before they churned, converted, or got stuck. Linked to the same behavioral data.</p>
         </div>
       </div>
       <div class="oa-feat">
-        <div class="oa-feat-icon">
-          <span class="material-symbols-rounded">science</span>
-        </div>
+        <div class="oa-feat-icon"><span class="material-symbols-rounded">science</span></div>
         <div class="oa-feat-body">
           <h3>Experiments that hold up</h3>
           <p>Sequential testing, CUPED, guardrail metrics, and auto-rollback. Not just A/B tests. Statistically valid decisions.</p>
         </div>
       </div>
       <div class="oa-feat">
-        <div class="oa-feat-icon">
-          <span class="material-symbols-rounded">terminal</span>
-        </div>
+        <div class="oa-feat-icon"><span class="material-symbols-rounded">terminal</span></div>
         <div class="oa-feat-body">
           <h3>Built for how you work</h3>
           <p>CLI setup in minutes. Full MCP server. Your agents in Claude Code and Cursor read the same data your dashboards show.</p>
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- ── MANIFESTO ── -->
+<!-- MANIFESTO -->
 <div class="manifesto-wrap">
   <h2>How we think about pricing.</h2>
   <p class="manifesto-sub">A few commitments we keep, regardless of what plan you're on.</p>
@@ -1002,7 +642,7 @@ body{
   </div>
 </div>
 
-<!-- ── FAQs ── -->
+<!-- FAQs -->
 <section class="faq-wrap">
   <h2>FAQs</h2>
 
@@ -1011,7 +651,7 @@ body{
       <span class="faq-q-text">Is there a free plan?</span>
       <span class="faq-ch">▾</span>
     </button>
-    <div class="faq-a">Yes. Amplitude's Starter plan is free forever with 2 million events per month, no credit card required. Every product is included: analytics, session replay, feature flags, experiments, guides, surveys, and AI agents. The event cap is hard. You will never be charged on Starter. There is also a Free Plus plan that includes the same 2 million events per month but requires a credit card. With Free Plus, you only pay if you exceed the free tier.</div>
+    <div class="faq-a">Yes. Amplitude's Starter plan is free forever with 2 million events per month, no credit card required. Every product is included: analytics, session replay, feature flags, experiments, guides, surveys, and AI agents. The event cap is hard. You will never be charged on Starter.</div>
   </div>
 
   <div class="faq-item">
@@ -1066,10 +706,9 @@ body{
     </button>
     <div class="faq-a">Yes. Amplitude's Startup Program gives qualifying startups the full Growth plan free for 12 months. Over $50,000 in value. You qualify if you have fewer than 20 employees and have raised under $10 million. The program includes every Amplitude product, priority support, and Growth-tier features at no cost for the first year.</div>
   </div>
-
 </section>
 
-<!-- ── BOTTOM CTA ── -->
+<!-- BOTTOM CTA -->
 <section class="bcta">
   <h2>Start building. See what your users actually do.</h2>
   <p class="bcta-sub">Free plan. Every product. No credit card. Takes 5 minutes.</p>
@@ -1080,34 +719,40 @@ body{
   <p class="bcta-cli">$ npx @amplitude/cli setup</p>
 </section>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-grid">
-    <div>
+    <div class="footer-col">
       <div class="footer-col-title">Platform</div>
-      <div>AI Agents</div><div>AI Visibility</div><div>Product Analytics</div><div>Session Replay</div><div>Feature Flags</div><div>Experimentation</div><div>Web Analytics</div><div>Guides and Surveys</div><div>Error Monitoring</div>
+      <div>AI Agents</div><div>AI Visibility</div><div>Product Analytics</div>
+      <div>Session Replay</div><div>Feature Flags</div><div>Experimentation</div>
+      <div>Web Analytics</div><div>Guides and Surveys</div><div>Error Monitoring</div>
     </div>
-    <div>
+    <div class="footer-col">
       <div class="footer-col-title">Compare</div>
-      <div>Google Analytics</div><div>Contentsquare</div><div>Heap</div><div>LaunchDarkly</div><div>Mixpanel</div><div>Optimizely</div><div>PostHog</div><div>Pendo</div><div>Sentry</div><div>Statsig</div>
+      <div>Google Analytics</div><div>Contentsquare</div><div>Heap</div>
+      <div>LaunchDarkly</div><div>Mixpanel</div><div>Optimizely</div>
+      <div>PostHog</div><div>Pendo</div><div>Sentry</div><div>Statsig</div>
     </div>
-    <div>
+    <div class="footer-col">
       <div class="footer-col-title">Resources</div>
-      <div>Developer Docs</div><div>CLI Setup Guide</div><div>MCP Integration</div><div>Agent Prompt Library</div><div>Blog</div><div>Changelog</div><div>Amplitude Academy</div>
+      <div>Developer Docs</div><div>CLI Setup Guide</div><div>MCP Integration</div>
+      <div>Agent Prompt Library</div><div>Blog</div><div>Changelog</div><div>Amplitude Academy</div>
     </div>
-    <div>
+    <div class="footer-col">
       <div class="footer-col-title">Support</div>
-      <div>Status Page</div><div>Contact Us</div><div>Help Center</div><div>Community</div><div>Partner Program</div><div>Startup Program</div>
+      <div>Status Page</div><div>Contact Us</div><div>Help Center</div>
+      <div>Community</div><div>Partner Program</div><div>Startup Program</div>
     </div>
-    <div>
+    <div class="footer-col">
       <div class="footer-col-title">Company</div>
-      <div>About Us</div><div>Careers</div><div>Press and News</div><div>Investor Relations</div><div>Diversity and Inclusion</div>
+      <div>About Us</div><div>Careers</div><div>Press and News</div>
+      <div>Investor Relations</div><div>Diversity and Inclusion</div>
     </div>
   </div>
   <div class="footer-bottom">
     <div class="footer-brand">
-      <!-- TODO: Replace with official Amplitude logo from brand.amplitude.com -->
-      <div class="logo-placeholder" aria-label="Amplitude logo" style="width:18px;height:18px;font-size:8px">A</div>
+      <div class="logo-placeholder" style="width:18px;height:18px;font-size:8px">A</div>
       amplitude
     </div>
     <span>Terms of Service · Privacy Notice · Acceptable Use Policy · Legal</span>
@@ -1116,12 +761,8 @@ body{
 </footer>
 
 <script>
-/* Open analytics section by default on load */
-window.addEventListener('DOMContentLoaded', function() {
-  toggleCat('analytics');
-});
+window.addEventListener('DOMContentLoaded', function() { toggleCat('analytics'); });
 
-/* FAQ accordion */
 function toggleFaq(btn) {
   var a = btn.nextElementSibling, ch = btn.querySelector('.faq-ch');
   var isOpen = a.classList.contains('open');
@@ -1130,7 +771,6 @@ function toggleFaq(btn) {
   if (!isOpen) { a.classList.add('open'); ch.classList.add('open'); }
 }
 
-/* Compare table accordion */
 function toggleCat(cat) {
   var rows = document.querySelectorAll('[data-cat="' + cat + '"]');
   var toggle = document.getElementById('toggle-' + cat);
@@ -1140,12 +780,10 @@ function toggleCat(cat) {
   else { toggle.classList.add('open'); toggle.textContent = '−'; }
 }
 
-/* Scroll to compare */
 function scrollToCompare() {
   document.getElementById('comparePlans').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-/* CLI copy */
 function copyCmd(el) {
   var cmd = 'npx @amplitude/cli setup';
   if (navigator.clipboard) {
@@ -1157,7 +795,6 @@ function copyCmd(el) {
   }
 }
 
-/* AI Plan Recommender */
 function recommend() {
   var raw = document.getElementById('rec-input').value.trim();
   var input = raw.toLowerCase();
@@ -1166,16 +803,10 @@ function recommend() {
     result.innerHTML = '<div class="rec-result-card gentle">Tell us what you\'re building and we\'ll recommend a plan.</div>';
     return;
   }
-
-  // Enterprise signals
-  var enterprise = ['enterprise','sso','saml','compliance','hipaa','soc2','audit','governance','data residency','infosec','security review','thousands of employees','global team','dedicated support','legal review','procurement'];
+  var enterprise = ['enterprise','sso','saml','compliance','hipaa','soc2','audit','governance','data residency','infosec','security review','thousands of employees','global team','dedicated support'];
   for (var i=0;i<enterprise.length;i++) if(input.indexOf(enterprise[i])!==-1) return showRec('enterprise');
-
-  // Growth signals
   var growth = ['100k users','1 million','10 million','50 million','sequential test','cuped','guardrail','auto-rollback','large team','series b','series c','100+ employees','error monitoring','heatmap'];
   for (var i=0;i<growth.length;i++) if(input.indexOf(growth[i])!==-1) return showRec('growth');
-
-  // Volume parsing
   var m = input.match(/([\d,]+\.?\d*)\s*(k|thousand|m|million|b|billion)?/i);
   if (m) {
     var n = parseFloat(m[1].replace(/,/g,''));
@@ -1187,22 +818,17 @@ function recommend() {
     if (n > 2e6) return showRec('plus');
     return showRec('starter');
   }
-
-  // Plus signals
-  var plus = ['growing','scaling','production','live product','paying users','revenue','retention','funded','raised','past 2m','exceed 2m','millions of users','launched'];
+  var plus = ['growing','scaling','production','live product','paying users','revenue','retention','funded','raised','launched'];
   for (var i=0;i<plus.length;i++) if(input.indexOf(plus[i])!==-1) return showRec('plus');
-
-  // Starter signals
-  var starter = ['founder','solo','just me','side project','indie','bootstrapped','brand new','mvp','prototype','learning','hobby','early stage','pre-launch','first product','no users yet'];
+  var starter = ['founder','solo','just me','side project','indie','bootstrapped','brand new','mvp','prototype','learning','hobby','early stage','pre-launch'];
   for (var i=0;i<starter.length;i++) if(input.indexOf(starter[i])!==-1) return showRec('starter');
-
   showRec('fallback');
 }
 
 function showRec(plan) {
   var plans = {
     starter: { name:'Starter', sub:'Free · no credit card', text:'Start free with 2M events, no credit card required. Good fit if you\'re early-stage, shipping an MVP, or getting your first usage data in. Every product included. You\'ll never be charged.', cta:'Start for free', btnClass:'btn-outline' },
-    plus: { name:'Plus', sub:'Pay as you grow', text:'Start free, then pay as your event volume grows past 2M. Good fit if you have a live product, expect to scale, and want to stay on one plan the whole way.', cta:'Get started', btnClass:'btn-primary blue' },
+    plus: { name:'Plus', sub:'From $49/mo', text:'Start at $49/mo and scale as your event volume grows. Good fit if you have a live product, expect growth, and want to stay on one plan the whole way.', cta:'Get started', btnClass:'btn-primary blue' },
     growth: { name:'Growth', sub:'For scaling teams', text:'Built for teams running real experiments at scale. Unlimited experiments, sequential testing, CUPED, error monitoring, and 10K replays included. Talk to our team to get started.', cta:'Talk to our team', btnClass:'btn-primary' },
     enterprise: { name:'Enterprise', sub:'Governance and compliance', text:'If you need SSO, audit logs, compliance controls, or a dedicated CSM, Enterprise is the right fit. Talk to our team.', cta:'Talk to our team', btnClass:'btn-primary' },
     fallback: { name:'Starter', sub:'When in doubt, start free', text:'Start free with 2M events, every product, and unlimited seats. No credit card needed. Move to Plus whenever your usage calls for it.', cta:'Start for free', btnClass:'btn-outline' }
@@ -1218,6 +844,5 @@ function showRec(plan) {
     '</div>';
 }
 </script>
-
 </body>
 </html>
